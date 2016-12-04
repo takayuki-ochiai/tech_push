@@ -1,0 +1,3 @@
+class FirstTopic < Topic
+
+end

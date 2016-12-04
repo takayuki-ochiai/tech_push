@@ -1,0 +1,3 @@
+class SecondTopic < Topic
+
+end

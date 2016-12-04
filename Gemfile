@@ -29,6 +29,13 @@ gem 'redis-rails'
 
 gem 'slim-rails'
 
+gem 'devise'
+gem 'omniauth', '>= 1.0.0'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-github'
+gem 'devise_token_auth'
+
 # Handle camel/snake/dash case conversion
 # gem "olive_branch"
 # -------------------------------------------------------

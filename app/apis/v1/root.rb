@@ -10,14 +10,33 @@ module V1
       error!({ message: "Server Error"}, 500)
     end
 
-    # helpers do
-    #   # grapeはparamsにjson_param_key_transformでsnake_caseに変換したparamsを取得できない。
-    #   # このメソッドはsnake_caseに変換したパラメーターをActionController::Parametersにラップして渡してあげるメソッド
-    #   def action_dispatch_params
-    #     @action_dispatch_params ||= ActionController::Parameters.new(@env['action_dispatch.request.request_parameters'])
-    #   end
-    # end
-    #
+    helpers do
+      def authenticate_error!
+        # 認証が失敗したときのエラー
+        h = {'Access-Control-Allow-Origin' => "*",
+             'Access-Control-Request-Method' => %w{GET POST OPTIONS}.join(",")}
+        error!('You need to log in to use the app.', 401, h)
+      end
+
+      def authenticate_user!
+        # header から認証に必要な情報を取得
+        uid = request.headers['Uid']
+        token = request.headers['Access-Token']
+        client = request.headers['Client']
+        @user = User.find_by_uid(uid)
+
+        # 認証に失敗したらエラー
+        unless @user && @user.valid_token?(token, client)
+          authenticate_error!
+        end
+      end
+    end
     mount V1::Sample
+
+    desc 'GET /api/v1/testlogin'
+    get 'testlogin' do
+      authenticate_user!
+      {message: 'testだよ'}
+    end
   end
 end
