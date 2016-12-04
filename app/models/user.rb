@@ -12,9 +12,12 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, omniauth_providers: [:facebook]
+         :recoverable, :trackable, :validatable
+
   include DeviseTokenAuth::Concerns::User
+  # 何らかの理由でinclude DeviseTokenAuth::Concerns::Userがomniauthableを取り除いてしまうらしいので
+  # DeviseTokenAuth::Concerns::Userのincludeのあとで再読み込み
+  devise :omniauthable, omniauth_providers: [:facebook]
 
   def self.find_for_oauth(auth)
     user = User.where(uid: auth.uid, provider: auth.provider).first
