@@ -9,7 +9,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     )
 
     # remember_me(user)
-
     sign_in_and_redirect user, event: :authentication
   end
 

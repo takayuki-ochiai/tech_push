@@ -12,23 +12,37 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :trackable, :validatable
+         :recoverable, :trackable, :validatable,
+         :omniauthable, omniauth_providers: [:facebook]
 
-  include DeviseTokenAuth::Concerns::User
-  # 何らかの理由でinclude DeviseTokenAuth::Concerns::Userがomniauthableを取り除いてしまうらしいので
-  # DeviseTokenAuth::Concerns::Userのincludeのあとで再読み込み
-  devise :omniauthable, omniauth_providers: [:facebook]
+  after_create :update_access_token!
 
-  def self.find_for_oauth(auth)
-    user = User.where(uid: auth.uid, provider: auth.provider).first
-    unless user
-      user = User.create(
-        uid:      auth.uid,
-        provider: auth.provider,
-        email:    User.dummy_email(auth),
-        password: Devise.friendly_token[0, 20]
-      )
-    end
-    user
+  def update_access_token!
+    self.access_token = "#{self.id}:#{Devise.friendly_token}"
+    self.save
   end
+
+  def self.find_by_authentication_token(access_token)
+    unless access_token.include?(':')
+      return
+    end
+    user_id = access_token.split(':').first
+    user = User.where(id: user_id).first
+    if user && Devise.secure_compare(user.access_token, access_token)
+      user
+    end
+  end
+
+  # def self.find_for_oauth(auth)
+  #   user = User.where(uid: auth.uid, provider: auth.provider).first
+  #   unless user
+  #     user = User.create(
+  #       uid:      auth.uid,
+  #       provider: auth.provider,
+  #       email:    User.dummy_email(auth),
+  #       password: Devise.friendly_token[0, 20]
+  #     )
+  #   end
+  #   user
+  # end
 end

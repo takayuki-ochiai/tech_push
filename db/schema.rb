@@ -93,7 +93,7 @@ ActiveRecord::Schema.define(version: 20161030080617) do
     t.string   "nickname"
     t.string   "image"
     t.string   "email"
-    t.text     "tokens",                 limit: 65535
+    t.text     "access_token",           limit: 65535
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
     t.index ["email"], name: "index_users_on_email", using: :btree

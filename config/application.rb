@@ -18,6 +18,10 @@ module Base
     config.paths.add File.join('app', 'customs'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'customs', '*')]
 
+    # app/errors/ 下のRuby ファイルが読み込まれるようにする
+    config.paths.add File.join('app', 'errors'), glob: File.join('**', '*.rb')
+    config.autoload_paths += Dir[Rails.root.join('app', 'errors', '*')]
+
     # app/apis/ 下の Ruby ファイルが読み込まれるようにする
     config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'apis', '*')]

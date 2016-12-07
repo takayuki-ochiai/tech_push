@@ -5,38 +5,38 @@ module V1
     version 'v1'
     format :json
 
+    # 認証エラーが発生した場合は400エラーを返します。
+    rescue_from AuthenticationError do |e|
+      Rails.logger.info(e.message)
+      authenticate_error
+    end
+
     rescue_from :all do |e|
       Root.logger.error(e.message.to_s << "\n" << e.backtrace.join("\n"))
       error!({ message: "Server Error"}, 500)
     end
 
     helpers do
-      def authenticate_error!
-        # 認証が失敗したときのエラー
-        h = {'Access-Control-Allow-Origin' => "*",
-             'Access-Control-Request-Method' => %w{GET POST OPTIONS}.join(",")}
-        error!('You need to log in to use the app.', 401, h)
+      def warden
+        env['warden']
       end
 
-      def authenticate_user!
-        # header から認証に必要な情報を取得
-        uid = request.headers['Uid']
-        token = request.headers['Access-Token']
-        client = request.headers['Client']
-        @user = User.find_by_uid(uid)
+      def authenticated?
+        return true if warden.authenticated?
+        params[:access_token] && @user = User.find_by_authentication_token(params[:access_token])
+      end
 
-        # 認証に失敗したらエラー
-        unless @user && @user.valid_token?(token, client)
-          authenticate_error!
-        end
+      def current_user
+        warden.user || @user
+      end
+
+      # Authentication Failure
+      # Renders a 401 error
+      def authenticate_error
+        # User's token is either invalid or not in the right format
+        error!({ message: "認証エラーです！", status: 400 }, 400)
       end
     end
-    mount V1::Sample
-
-    desc 'GET /api/v1/testlogin'
-    get 'testlogin' do
-      authenticate_user!
-      {message: 'testだよ'}
-    end
+    mount V1::Login
   end
 end
