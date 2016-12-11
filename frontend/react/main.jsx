@@ -27,6 +27,11 @@ import Sample from './components/pages/Sample';
 //     accent1Color: redA200,
 //   },
 // });
+//
+
+if (window.location.hash === '#_=_') {
+  window.location.hash = '';
+}
 
 render(
   <Router history={hashHistory}>
