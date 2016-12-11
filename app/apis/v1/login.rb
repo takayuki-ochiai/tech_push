@@ -7,6 +7,18 @@ module V1
     end
 
     # http://localhost:3000/api/v1/access_token
+    resource :access_token do
+      desc '現在のアクセストークンを戻す'
+      get '/' do
+        if authenticated?
+          user = current_user
+          {access_token: user.access_token}.camelize_keys
+        else
+          authenticate_error
+        end
+      end
+    end
+
 
     resource :access_token do
       desc '新しいアクセストークンを発行'
