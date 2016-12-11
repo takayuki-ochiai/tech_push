@@ -10,28 +10,22 @@ module V1
     resource :access_token do
       desc '現在のアクセストークンを戻す'
       get '/' do
-        if authenticated?
-          user = current_user
-          unless user.access_token
-            user.update_access_token!
-          end
-          return {access_token: user.access_token}.camelize_keys
-        else
-          authenticate_error
+        authenticate_user
+        user = current_user
+        unless user.access_token
+          user.update_access_token!
         end
+        {access_token: user.access_token}.camelize_keys
       end
     end
 
     resource :access_token do
       desc '新しいアクセストークンを発行'
       post '/' do
-        if authenticated?
-          user = current_user
-          user.update_access_token!
-          {access_token: user.access_token}.camelize_keys
-        else
-          authenticate_error
-        end
+        authenticate_user
+        user = current_user
+        user.update_access_token!
+        {access_token: user.access_token}.camelize_keys
       end
     end
   end

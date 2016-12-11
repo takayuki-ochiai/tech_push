@@ -24,7 +24,7 @@ class ApiResource {
       resolve => {
         request
           .get(url)
-          .set('AccessToken', this.accessToken)
+          .set('Access-Token', this.accessToken)
           .query(humps.decamelizeKeys(query))
           .end((err, res) => resolve(res));
       }
@@ -40,7 +40,7 @@ class ApiResource {
       resolve => {
         request
           .post(url)
-          .set('AccessToken', this.accessToken)
+          .set('Access-Token', this.accessToken)
           .send(humps.decamelizeKeys(params))
           .end((err, res) => resolve(res));
       }

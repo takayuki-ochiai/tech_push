@@ -17,12 +17,21 @@ module V1
     end
 
     helpers do
+      def authenticate_user
+        return if authenticated?
+        authenticate_error
+      end
+
+      def access_token
+        request.headers["Access-Token"]
+      end
+
       def warden
         env['warden']
       end
 
       def authenticated?
-        if params[:access_token] && @user = User.find_by_authentication_token(params[:access_token])
+        if access_token && @user = User.find_by_authentication_token(access_token)
           return true
         end
         warden.authenticated?

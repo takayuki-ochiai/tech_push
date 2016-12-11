@@ -6,9 +6,13 @@ module V1
       rack_response({ message: e.message, status: 500 }.to_json, 500)
     end
 
+    before do
+      authenticate_user
+    end
+
     # http://localhost:3000/api/v1/test
     post '/test' do
-      binding.pry
+      {call_back: "コールバック"}.camelize_keys
     end
   end
 end
