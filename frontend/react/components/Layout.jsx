@@ -1,30 +1,43 @@
 import React, { PropTypes } from 'react';
-
-import { RouteTransition } from 'react-router-transition';
 import transitionStyle from '../../stylesheet/routerTransition.css';
+import ApiResource from '../utils/ApiResource';
 
-function Layout({ location, routerTransition, children }) {
-  return (
-    <div>
-      <RouteTransition
-        component={false}
-        className={transitionStyle.wrapper}
-        pathname={location.pathname}
-        {...routerTransition}
-      >
+class Layout extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      apiResource: null
+    };
+  }
+
+  componentDidMount() {
+    this.initializeApiResource();
+  }
+
+  async initializeApiResource() {
+    const apiResource = await ApiResource.initialize();
+    console.log('after initialize');
+    // eslint-disable-next-line react/no-did-mount-set-state
+    this.setState({
+      apiResource
+    });
+  }
+
+  render() {
+    return (
+      <div>
         <div className={transitionStyle.content}>
-          {children}
+          {React.cloneElement(this.props.children, { apiResource: this.state.apiResource })}
         </div>
-      </RouteTransition>
-    </div>
-  );
+      </div>
+    );
+  }
+
 }
 
 
 Layout.propTypes = {
-  location: PropTypes.object.isRequired,
-  routerTransition: PropTypes.object.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default Layout;

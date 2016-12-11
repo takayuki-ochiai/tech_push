@@ -1,8 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
-
+import 'babel-polyfill';
 // ルーティング用ライブラリ
-import { Router, Route, hashHistory } from 'react-router';
+import { IndexRoute, Router, Route, hashHistory } from 'react-router';
+import Layout from './components/Layout';
 
 // Material UI 用ライブラリ
 // import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -10,9 +11,8 @@ import { Router, Route, hashHistory } from 'react-router';
 // import injectTapEventPlugin from 'react-tap-event-plugin';
 // import { grey50, redA200 } from 'material-ui/styles/colors';
 
-import Root from './components/page/Root';
-import Sample from './components/page/Sample';
-
+import Root from './containers/pages/Root';
+import Sample from './components/pages/Sample';
 
 
 // Material UIを使用する場合、ReactがV1.0になるまでは必要らしい
@@ -30,8 +30,11 @@ import Sample from './components/page/Sample';
 
 render(
   <Router history={hashHistory}>
-    <Route path="/" component={Root} />
-    <Route path="/sample" component={Sample} />
+    <Route path="/" component={Layout}>
+      <IndexRoute component={Root} />
+      <Route path="/sample" component={Sample} />
+    </Route>
+
   </Router>,
   document.getElementById('app')
 );

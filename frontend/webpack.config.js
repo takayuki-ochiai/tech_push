@@ -39,6 +39,8 @@ if (!DEBUG) {
 }
 
 const entrySources = [
+  // babel-polyfillのimport用
+  'babel-polyfill',
   // 'webpack-hot-middleware/client',
   './react/main.jsx',
   './stylesheet/reset.css',
