@@ -12,13 +12,15 @@ module V1
       get '/' do
         if authenticated?
           user = current_user
-          {access_token: user.access_token}.camelize_keys
+          unless user.access_token
+            user.update_access_token!
+          end
+          return {access_token: user.access_token}.camelize_keys
         else
           authenticate_error
         end
       end
     end
-
 
     resource :access_token do
       desc '新しいアクセストークンを発行'
