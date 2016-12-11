@@ -32,7 +32,7 @@ module HashSerializeKeys
 
 
     unless method_defined?(:camelize_keys)
-      def camelize_keys(first_letter = :upper)
+      def camelize_keys(first_letter = :lower)
         deep_transform_keys do |key|
           if key.is_a?(::String)
             key = key.camelize(first_letter)
@@ -47,7 +47,7 @@ module HashSerializeKeys
     end
 
     unless method_defined?(:camelize_keys!)
-      def camelize_keys!(first_letter = :upper)
+      def camelize_keys!(first_letter = :lower)
         deep_transform_keys! do |key|
           if key.is_a?(::String)
             key = key.camelize(first_letter)
