@@ -5,9 +5,7 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore bundler config.
-/.bundle
-/frontend/dist
-!/frontend/dist/bundle.js
+
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
@@ -23,3 +21,5 @@
 .byebug_history
 
 node_modules
+/public/assets
+npm-debug.log
