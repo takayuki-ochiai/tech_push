@@ -14,7 +14,7 @@ export default class RootContainer extends MicroContainer {
   componentDidMount() {
     this.subscribe({
       increment: this.handleIncrement,
-      decrement: this.handleDecrement,
+      decrement: this.handleDecrement
     });
   }
 

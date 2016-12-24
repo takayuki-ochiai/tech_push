@@ -16,7 +16,8 @@
     "arrow-parens": [2, "as-needed"],
     "jsx-quotes": 2,
     "comma-dangle": 0,
-    "react/prefer-stateless-function": 0
+    "react/prefer-stateless-function": 0,
+    "react/prop-types": 0
   },
   "plugins": ["react"],
   "settings": {

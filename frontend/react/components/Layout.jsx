@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
+import { withRouter } from 'react-router';
 import transitionStyle from '../../stylesheet/routerTransition.css';
 import ApiResource from '../utils/ApiResource';
 
@@ -12,10 +13,10 @@ class Layout extends React.Component {
       apiResource: null,
       isSideMenuOpen: false
     };
-
     this.openSideMenu = this.openSideMenu.bind(this);
-    // this.closeSideMenu = this.closeSideMenu.bind(this);
+    this.closeSideMenu = this.closeSideMenu.bind(this);
     this.onRequestChangeMenu = this.onRequestChangeMenu.bind(this);
+    this.onHeaderLeftIconTouchTap = this.onHeaderLeftIconTouchTap.bind(this);
   }
 
   componentDidMount() {
@@ -23,10 +24,14 @@ class Layout extends React.Component {
   }
 
   onRequestChangeMenu(open) {
-    debugger;
     if (!open) {
       this.closeSideMenu();
     }
+  }
+
+  onHeaderLeftIconTouchTap(event) {
+    event.preventDefault();
+    this.openSideMenu();
   }
 
   openSideMenu() {
@@ -37,13 +42,12 @@ class Layout extends React.Component {
 
   closeSideMenu() {
     this.setState({
-      isSideMenuOpen: close
+      isSideMenuOpen: false
     });
   }
 
   async initializeApiResource() {
     const apiResource = await ApiResource.initialize();
-    console.log('after initialize');
     // eslint-disable-next-line react/no-did-mount-set-state
     this.setState({
       apiResource
@@ -51,17 +55,27 @@ class Layout extends React.Component {
   }
 
   render() {
+    const router = this.props.router;
     return (
       <div>
         <AppBar
           title="Tech Push"
-          onLeftIconButtonTouchTap={this.openSideMenu}
+          onLeftIconButtonTouchTap={this.onHeaderLeftIconTouchTap}
         />
         <Drawer
           open={this.state.isSideMenuOpen}
+          docked={false}
           onRequestChange={this.onRequestChangeMenu}
         >
-          <MenuItem>トピックの設定</MenuItem>
+          <MenuItem
+            onTouchTap={event => {
+              event.preventDefault();
+              this.closeSideMenu();
+              router.push('/topics/edit');
+            }}
+          >
+            トピックの設定
+          </MenuItem>
         </Drawer>
         <div className={transitionStyle.content}>
           {React.cloneElement(this.props.children, { apiResource: this.state.apiResource })}
@@ -77,4 +91,4 @@ Layout.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-export default Layout;
+export default withRouter(Layout);
