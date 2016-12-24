@@ -14,5 +14,8 @@ module V1
     post '/test' do
       {call_back: "コールバック"}.camelize_keys
     end
+    get '/test' do
+      {call_back: "getコールバック"}.camelize_keys
+    end
   end
 end

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 // ルーティング用ライブラリ
 import { IndexRoute, Router, Route, hashHistory } from 'react-router';
@@ -13,19 +13,19 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Root from './pages/RootContainer';
 import TopicSettings from './pages/TopicSettingsContainer';
 
-// immutable.jsとreact-router-reduxを併用する場合はselectLocationStateオプションに下記をセットする必要がある
-// redux-immutableを使っていないのでstate.get('routing')ではない
-// const muiTheme = getMuiTheme();
-
-const App = () => (
-  <MuiThemeProvider>
-    <Router history={hashHistory}>
-      <Route path="/" component={Layout}>
-        <IndexRoute component={Root} />
-        <Route path="/topics/edit" component={TopicSettings} />
-      </Route>
-    </Router>
-  </MuiThemeProvider>
-);
+class App extends Component {
+  render() {
+    return (
+      <MuiThemeProvider>
+        <Router history={hashHistory}>
+          <Route path="/" component={Layout}>
+            <IndexRoute component={Root} />
+            <Route path="/topics/edit" component={TopicSettings} />
+          </Route>
+        </Router>
+      </MuiThemeProvider>
+    );
+  }
+}
 
 export default App;
