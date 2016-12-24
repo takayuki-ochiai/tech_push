@@ -49,6 +49,7 @@ const entrySources = [
 
 if (DEBUG) {
   entrySources.unshift('webpack/hot/dev-server');
+  entrySources.unshift('react-hot-loader/patch');
 }
 
 module.exports = {
@@ -72,7 +73,7 @@ module.exports = {
       {
         test: /\.(jsx|js)?$/,
         exclude: /node_modules/,
-        loaders: ['react-hot', 'babel?presets[]=react,presets[]=es2015'],
+        loaders: ['babel?presets[]=react,presets[]=es2015'],
       },
       {
         test: /\.css$/,
