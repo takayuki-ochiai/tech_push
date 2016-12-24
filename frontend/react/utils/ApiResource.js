@@ -26,7 +26,16 @@ class ApiResource {
           .get(url)
           .set('Access-Token', this.accessToken)
           .query(humps.decamelizeKeys(query))
-          .end((err, res) => resolve(res));
+          .end((err, res) => {
+            if (err) {
+              resolve({
+                error: err,
+                status: res.status
+              });
+            } else {
+              resolve({ response: res.body });
+            }
+          });
       }
     );
 
@@ -34,15 +43,22 @@ class ApiResource {
   }
 
   post(url, params = {}) {
-    console.log(humps.decamelizeKeys(params));
-    console.log(params);
     const result = new Promise(
       resolve => {
         request
           .post(url)
           .set('Access-Token', this.accessToken)
           .send(humps.decamelizeKeys(params))
-          .end((err, res) => resolve(res));
+          .end((err, res) => {
+            if (err) {
+              resolve({
+                error: err,
+                status: res.status
+              });
+            } else {
+              resolve({ response: res.body });
+            }
+          });
       }
     );
 

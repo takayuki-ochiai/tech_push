@@ -16,16 +16,11 @@ export default class TopicSettingsContainer extends MicroContainer {
 
   async fetchTopicSettings() {
     const test = await apiResource.get('/api/v1/test');
-    console.log('beforeFetch');
-    console.log(test);
-    console.log('afterFetch');
     return test;
   }
 
   async setInitialData() {
     const test = await this.fetchTopicSettings();
-    console.log('setInitialData');
-    console.log(test);
   }
 
   componentDidMount() {
