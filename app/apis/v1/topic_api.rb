@@ -1,6 +1,6 @@
 using HashSerializeKeys
 module V1
-  class Topic < Grape::API
+  class TopicAPI < Grape::API
     rescue_from StandardError do |e|
       Rails.logger.info(e.message)
       rack_response({ message: e.message, status: 500 }.to_json, 500)
@@ -10,12 +10,11 @@ module V1
       authenticate_user
     end
 
-    # http://localhost:3000/api/v1/test
-    post '/test' do
-      {call_back: "コールバック"}.camelize_keys
-    end
-    get '/test' do
-      {call_back: "getコールバック"}.camelize_keys
+    get '/topics' do
+      topics = Topic.all.map { |topic|
+        TopicSerializer.new(topic).serializable_hash
+      }
+      { topics: topics }.camelize_keys
     end
   end
 end
