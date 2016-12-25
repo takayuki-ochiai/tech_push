@@ -34,7 +34,7 @@ class TopicSettings extends Component {
       <FlatButton
         label={label}
         onTouchTap={event => {
-          event.preventDefault();
+          event.stopPropagation();
           if (topic.isFollow) {
             this.props.dispatch('unfollowTopic', topic);
           } else {
