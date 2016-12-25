@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(version: 20161030080617) do
     t.integer  "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_topics_on_name", unique: true, using: :btree
     t.index ["parent_id"], name: "fk_rails_5f3c091f12", using: :btree
   end
 

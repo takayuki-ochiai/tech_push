@@ -7,7 +7,6 @@ class CreateTopics < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    add_index :topics, :name, unique: true
     add_foreign_key :topics, :topics, column: :parent_id
   end
 end
