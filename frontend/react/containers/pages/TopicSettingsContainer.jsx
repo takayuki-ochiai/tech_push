@@ -55,18 +55,37 @@ class TopicSettingsContainer extends MicroContainer {
    */
   findDescendantTopics(ancestorTopic) {
     const topics = this.state.store.topics.toArray();
-    const childTopics = topics.filter(topic => {
-      if (ancestorTopic.id === topic.parentId) {
-        console.log(true);
-      }
-      return ancestorTopic.id === topic.parentId;
-    });
+    const childTopics = topics.filter(topic => ancestorTopic.id === topic.parentId);
     const descendantTopics = childTopics.reduce((resultList, childTopic) => {
       const recursiveTopics = this.findDescendantTopics(childTopic);
       const newResultList = resultList.concat(recursiveTopics);
       return newResultList;
     }, []);
     return childTopics.concat(descendantTopics);
+  }
+
+  /**
+   * 対象のトピックの親とその先祖について、
+   * フォロー対象に含めるべき先祖のトピックを取得します。
+   */
+  findFollowAncestorTopics(targetTopic) {
+    // もし自分の兄弟要素がすべてフォロー中だったら、自分の親要素をフォロー対象に追加
+    let resultTopics = [];
+    // さらに祖先の要素も再帰的にフォロー対象に追加
+    const topics = this.state.store.topics.toArray();
+    const siblingsTopic = topics.filter(
+      topic => (topic.parentId === targetTopic.parentId && topic.id !== targetTopic.id)
+    );
+    const isFollowParent = siblingsTopic.every(sibling => sibling.isFollow);
+    if (isFollowParent) {
+      const parentTopic = topics.find(topic => topic.id === targetTopic.parentId);
+      if (parentTopic) {
+        resultTopics.push(parentTopic);
+        const ancestorTopics = this.findFollowAncestorTopics(parentTopic);
+        resultTopics = resultTopics.concat(ancestorTopics);
+      }
+    }
+    return resultTopics;
   }
 
   /**
@@ -77,8 +96,12 @@ class TopicSettingsContainer extends MicroContainer {
   followTopic(topic) {
     // フォロー状態にする自分の子孫を探す
     const descendantTopics = this.findDescendantTopics(topic);
-    // descendantTopics = descendantTopics.map(topics => topics.set('isFollow', true));
-    const followTopics = descendantTopics.concat(topic);
+    // フォロー状態にする先祖の要素を追加
+    const followingAncestorTopics = this.findFollowAncestorTopics(topic);
+    let followTopics = descendantTopics.concat(followingAncestorTopics);
+    // フォロー対象に自分を追加
+    followTopics = followTopics.concat(topic);
+    // フォロー状態に更新
     let updateTopics = this.state.store.topics;
     followTopics.forEach(followTopic => {
       const index = updateTopics.findIndex(
@@ -90,7 +113,6 @@ class TopicSettingsContainer extends MicroContainer {
     this.setState({
       store: this.state.store.set('topics', updateTopics)
     });
-    // フォロー状態にする自分の祖先を探す
   }
 
   componentDidMount() {
