@@ -24,6 +24,7 @@ class TopicSettingsContainer extends MicroContainer {
   async fetchTopicSettings() {
     const interestResponse = await apiResource.get('/api/v1/user/interests');
     const topicResponse = await apiResource.get('/api/v1/topics');
+    // TODO 500エラーハンドリング
     return {
       interests: interestResponse.interests,
       topics: topicResponse.topics
@@ -109,7 +110,7 @@ class TopicSettingsContainer extends MicroContainer {
    * APIにトピックのフォロー情報の更新を連携する。
    * フォロー連携に失敗した場合は画面のフォロー情報をロールバックする
    */
-  followTopic(topic) {
+  async followTopic(topic) {
     // フォロー状態にする自分の子孫を探す
     const descendantTopics = this.findDescendantTopics(topic);
     // フォロー状態にする先祖の要素を追加
@@ -117,6 +118,7 @@ class TopicSettingsContainer extends MicroContainer {
     let followTopics = descendantTopics.concat(followingAncestorTopics);
     // フォロー対象に自分を追加
     followTopics = followTopics.concat(topic);
+
     // フォロー状態に更新
     let updateTopics = this.state.store.topics;
     followTopics.forEach(followTopic => {
@@ -126,9 +128,21 @@ class TopicSettingsContainer extends MicroContainer {
       updateTopics = updateTopics.update(index, updateTopic => updateTopic.set('isFollow', true));
     });
 
+    // 画面ロールバック用のトピック情報を取得しておく
+    const rollBackTopics = this.state.store.topics;
+
     this.setState({
       store: this.state.store.set('topics', updateTopics)
     });
+
+    const followTopicsParam = followTopics.map(followTopic => followTopic.toObject());
+    const updateResponse = await apiResource.post('/api/v1/user/interests/follow', { topics: followTopicsParam });
+    // エラー時はロールバックする
+    if (updateResponse.error) {
+      this.setState({
+        store: this.state.store.set('topics', rollBackTopics)
+      });
+    }
   }
 
   unfollowTopic(topic) {

@@ -29,7 +29,6 @@ class TopicSettings extends Component {
   renderFollowButton(topic) {
     const label = topic.isFollow ? 'フォロー解除' : 'フォローする';
 
-
     return (
       <FlatButton
         label={label}
