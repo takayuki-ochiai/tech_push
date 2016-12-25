@@ -21,6 +21,7 @@ class App extends Component {
           <Route path="/" component={Layout}>
             <IndexRoute component={Root} />
             <Route path="/topics/edit" component={TopicSettings} />
+            <Route path="/topics/edit/:parentId" component={TopicSettings} />
           </Route>
         </Router>
       </MuiThemeProvider>

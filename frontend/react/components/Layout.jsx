@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
@@ -6,7 +6,7 @@ import { withRouter } from 'react-router';
 import transitionStyle from '../../stylesheet/routerTransition.css';
 
 
-class Layout extends React.Component {
+class Layout extends Component {
   constructor() {
     super();
     this.state = {
@@ -52,7 +52,7 @@ class Layout extends React.Component {
         <Drawer
           open={this.state.isSideMenuOpen}
           docked={false}
-          onRequestChange={this.onRequestChangeMenu}
+          onRequestChange={this.onRequestChangeSideMenu}
         >
           <MenuItem
             onTouchTap={event => {

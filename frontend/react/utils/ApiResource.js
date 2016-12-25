@@ -33,7 +33,7 @@ class ApiResource {
                 status: res.status
               });
             } else {
-              resolve({ response: res.body });
+              resolve(res.body);
             }
           });
       }
@@ -56,7 +56,7 @@ class ApiResource {
                 status: res.status
               });
             } else {
-              resolve({ response: res.body });
+              resolve(res.body);
             }
           });
       }
