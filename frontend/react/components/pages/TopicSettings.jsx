@@ -36,6 +36,7 @@ class TopicSettings extends Component {
         onTouchTap={event => {
           event.preventDefault();
           if (topic.isFollow) {
+            this.props.dispatch('unfollowTopic', topic);
           } else {
             this.props.dispatch('followTopic', topic);
           }

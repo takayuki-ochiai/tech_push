@@ -51,6 +51,22 @@ class TopicSettingsContainer extends MicroContainer {
   }
 
   /**
+   * 対象のトピックの先祖のトピックをすべて取得します
+   */
+  findAncestorTopics(targetTopic) {
+    let resultTopics = [];
+    const topics = this.state.store.topics.toArray();
+    const parentTopic = topics.find(topic => topic.id === targetTopic.parentId);
+    if (parentTopic) {
+      // さらに祖先の要素も再帰的にアンフォロー対象に追加
+      resultTopics.push(parentTopic);
+      const ancestorTopics = this.findAncestorTopics(parentTopic);
+      resultTopics = resultTopics.concat(ancestorTopics);
+    }
+    return resultTopics;
+  }
+
+  /**
    * 自分の子孫トピックをすべて取得する
    */
   findDescendantTopics(ancestorTopic) {
@@ -115,11 +131,35 @@ class TopicSettingsContainer extends MicroContainer {
     });
   }
 
+  unfollowTopic(topic) {
+    // フォロー解除にする自分の子孫を探す
+    const descendantTopics = this.findDescendantTopics(topic);
+    // フォロー解除にする先祖の要素を追加
+    const ancestorTopics = this.findAncestorTopics(topic);
+    let unfollowTopics = descendantTopics.concat(ancestorTopics);
+    // フォロー解除対象に自分を追加
+    unfollowTopics = unfollowTopics.concat(topic);
+
+    // フォロー解除状態に更新
+    let updateTopics = this.state.store.topics;
+    unfollowTopics.forEach(unfollowTopic => {
+      const index = updateTopics.findIndex(
+        candidateTopic => candidateTopic.id === unfollowTopic.id
+      );
+      updateTopics = updateTopics.update(index, updateTopic => updateTopic.set('isFollow', false));
+    });
+
+    this.setState({
+      store: this.state.store.set('topics', updateTopics)
+    });
+  }
+
   componentDidMount() {
     this.setInitialData();
     this.subscribe({
       goChildTopics: this.goChildTopics,
-      followTopic: this.followTopic
+      followTopic: this.followTopic,
+      unfollowTopic: this.unfollowTopic
     });
   }
 
