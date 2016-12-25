@@ -49,6 +49,7 @@ module V1
       end
     end
     mount V1::Login
-    mount V1::Topic
+    mount V1::TopicAPI
+    mount V1::UserAPI
   end
 end

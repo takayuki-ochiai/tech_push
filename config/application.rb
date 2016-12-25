@@ -25,5 +25,9 @@ module Base
     # app/apis/ 下の Ruby ファイルが読み込まれるようにする
     config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'apis', '*')]
+
+    # app/serializers/ 下の Ruby ファイルが読み込まれるようにする
+    config.paths.add File.join('app', 'serializers'), glob: File.join('**', '*.rb')
+    config.autoload_paths += Dir[Rails.root.join('app', 'serializers', '*')]
   end
 end
