@@ -23,7 +23,6 @@ module V1
         post '/follow' do
           user = current_user
           topic_ids = params[:topics].map(&:id)
-          # TODO 存在しなかったら新規レコード作成、存在したら何もしない
           interests = Interest.where(user_id: user.id, topic_id: topic_ids)
           topic_ids.each { |id|
             present_interest = interests.any? { |interest|
@@ -36,7 +35,17 @@ module V1
 
           { result: true }.camelize_keys
         end
+
+        post '/unfollow' do
+          user = current_user
+          # 送られてきたtopic_idsを持つ興味レコードで存在するものをすべてdeleteする
+          topic_ids = params[:topics].map(&:id)
+          interests = Interest.delete_all(user_id: user.id, topic_id: topic_ids)
+          { result: true }.camelize_keys
+        end
       end
+
+
     end
   end
 end
