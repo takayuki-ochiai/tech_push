@@ -35,6 +35,9 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-github'
 
+# .envから環境変数を読み込む
+gem 'dotenv-rails'
+
 # Handle camel/snake/dash case conversion
 # gem "olive_branch"
 # -------------------------------------------------------

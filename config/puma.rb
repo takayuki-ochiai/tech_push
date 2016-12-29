@@ -15,6 +15,18 @@ port        ENV.fetch("PORT") { 3000 }
 #
 environment ENV.fetch("RAILS_ENV") { "development" }
 
+# SSLで必要な証明書などのパスを設定する。
+if "development" == ENV.fetch("RAILS_ENV") { "development" }
+  key =  File.expand_path "../environments/develop_secrets/server.key", __FILE__
+  cert = File.expand_path "../environments/develop_secrets/server.crt", __FILE__
+  ssl_bind '0.0.0.0', '9292', {
+    key: key,
+    cert: cert,
+    # ca: "environments/develop_secrets/", # オレオレ証明書の場合は必要ないです／中間証明書が必要な場合は指定してください
+    verify_mode: "none"
+  }
+end
+
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
 # the concurrency of the application would be max `threads` * `workers`.

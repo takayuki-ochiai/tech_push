@@ -17,7 +17,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
  */
 const devtool    = DEBUG ? '#eval-source-map' : '#eval';
 const fileName   = DEBUG ? '[name]' : '[name]-[hash]';
-const publicPath = DEBUG ? 'http://localhost:3500/assets/' : '/assets/';
+const publicPath = DEBUG ? 'https://localhost:3500/assets/' : '/assets/';
 
 const plugins = [
   // Webpack 1.0
@@ -84,7 +84,7 @@ module.exports = {
   devServer: {
     headers: {
       // 'Access-Control-Allow-Origin': ['http://localhost:3000', 'http://local.examples.com/:3000'],
-      'Access-Control-Allow-Origin': 'http://local.examples.com:3000',
+      'Access-Control-Allow-Origin': 'https://local.examples.com:9292',
       'Access-Control-Allow-Credentials': 'true'
     }
   }

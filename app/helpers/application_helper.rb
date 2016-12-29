@@ -1,7 +1,7 @@
 module ApplicationHelper
   def webpack_asset_path(path)
     if Rails.env.development?
-      return "http://localhost:3500/assets/#{path}"
+      return "#{ENV["DEVELOP_WEBPACK_ASSETS_URL"]}#{path}"
     end
 
     host = Rails.application.config.action_controller.asset_host

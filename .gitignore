@@ -23,3 +23,9 @@
 node_modules
 /public/assets
 npm-debug.log
+
+# develop環境のオレオレ証明書などを置いてあるフォルダなのでignore
+config/environments/develop_secrets
+
+# .envはignore
+.env

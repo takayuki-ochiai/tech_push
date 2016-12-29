@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack --watch -d & node server.js",
-    "dev": "webpack-dev-server --hot --inline --port 3500 --progress --profile --colors",
+    "dev": "webpack-dev-server --hot --inline --https --port 3500 --progress --profile --colors",
     "build": "NODE_ENV=production webpack -p --progress --profile --colors ",
     "test": "mocha --require ./test/setup.js --compilers js:babel-register --recursive",
     "test:watch": "npm test -- --watch"
