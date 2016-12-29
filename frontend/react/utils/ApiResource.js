@@ -14,7 +14,6 @@ class ApiResource {
           .end((err, res) => resolve(new this(res.body.accessToken)));
       }
     );
-    console.log('new instance');
     return newInstance;
   }
 

@@ -2,8 +2,6 @@ import React from 'react';
 import MicroContainer from 'react-micro-container';
 import Root from '../../components/pages/Root';
 
-import { apiResource } from '../../main';
-
 export default class RootContainer extends MicroContainer {
   constructor(props) {
     super(props);
@@ -18,6 +16,10 @@ export default class RootContainer extends MicroContainer {
       increment: this.handleIncrement,
       decrement: this.handleDecrement
     });
+
+    // const result = OneSignal.getUserId().then(test => {
+    //   return null;
+    // });
   }
 
   handleIncrement(count) {
@@ -29,7 +31,6 @@ export default class RootContainer extends MicroContainer {
   }
 
   render() {
-    console.log(apiResource);
     return <Root dispatch={this.dispatch} {...this.state} />;
   }
 }

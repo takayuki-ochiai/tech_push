@@ -20,6 +20,12 @@ if (window.location.hash === '#_=_') {
 }
 
 async function initialize() {
+  // const OneSignal = OneSignal || [];
+  // OneSignal.push(['init', {
+  //   appId: '71f4dc03-743d-4995-8755-58d74502ecf',
+  //   autoRegister: true
+  // }]);
+
   const apiResource = await ApiResource.initialize();
   exports.apiResource = apiResource;
   render(
