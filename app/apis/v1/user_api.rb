@@ -26,7 +26,7 @@ module V1
           interests = Interest.where(user_id: user.id, topic_id: topic_ids)
           topic_ids.each { |id|
             present_interest = interests.any? { |interest|
-              interest.id == id
+              interest.topic_id == id
             }
             unless present_interest
               Interest.create!(user_id: user.id, topic_id: id)
@@ -44,8 +44,6 @@ module V1
           { result: true }.camelize_keys
         end
       end
-
-
     end
   end
 end
