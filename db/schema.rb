@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161030080617) do
+ActiveRecord::Schema.define(version: 20161230075859) do
 
   create_table "book_topics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "book_id"
@@ -31,6 +31,17 @@ ActiveRecord::Schema.define(version: 20161030080617) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "devices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.string   "one_signal_player_id", null: false
+    t.string   "device_model",         null: false
+    t.string   "device_os",            null: false
+    t.string   "type",                 null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.index ["user_id"], name: "index_devices_on_user_id", using: :btree
+  end
+
   create_table "interests", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "topic_id"
     t.integer  "user_id"
@@ -44,13 +55,21 @@ ActiveRecord::Schema.define(version: 20161030080617) do
   create_table "notifiers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "book_id"
     t.integer  "user_id"
-    t.boolean  "notified",        default: false, null: false
+    t.integer  "device_id"
+    t.boolean  "notified",             default: false, null: false
+    t.string   "one_signal_player_id",                 null: false
+    t.string   "device_model",                         null: false
+    t.string   "device_os",                            null: false
+    t.string   "type",                                 null: false
+    t.string   "headings",                             null: false
+    t.string   "contents",                             null: false
     t.datetime "notify_schedule"
     t.datetime "notify_datetime"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.index ["book_id", "user_id"], name: "index_notifiers_on_book_id_and_user_id", unique: true, using: :btree
     t.index ["book_id"], name: "index_notifiers_on_book_id", using: :btree
+    t.index ["device_id"], name: "index_notifiers_on_device_id", using: :btree
     t.index ["user_id"], name: "index_notifiers_on_user_id", using: :btree
   end
 
@@ -102,9 +121,11 @@ ActiveRecord::Schema.define(version: 20161030080617) do
 
   add_foreign_key "book_topics", "books"
   add_foreign_key "book_topics", "topics"
+  add_foreign_key "devices", "users"
   add_foreign_key "interests", "topics"
   add_foreign_key "interests", "users"
   add_foreign_key "notifiers", "books"
+  add_foreign_key "notifiers", "devices"
   add_foreign_key "notifiers", "users"
   add_foreign_key "topic_tree_paths", "topics", column: "ancestor_id"
   add_foreign_key "topic_tree_paths", "topics", column: "descendant_id"

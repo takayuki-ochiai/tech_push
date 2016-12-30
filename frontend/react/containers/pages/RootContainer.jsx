@@ -16,10 +16,6 @@ export default class RootContainer extends MicroContainer {
       increment: this.handleIncrement,
       decrement: this.handleDecrement
     });
-
-    // const result = OneSignal.getUserId().then(test => {
-    //   return null;
-    // });
   }
 
   handleIncrement(count) {
