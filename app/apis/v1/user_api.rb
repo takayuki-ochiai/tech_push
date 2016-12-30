@@ -18,6 +18,19 @@ module V1
         }
         { interests: interests }.camelize_keys
       end
+
+      get '/' do
+        { user: UserSerializer.new(User.first).serializable_hash }.camelize_keys
+      end
+
+      post '/device' do
+        Device.create_suitable_device!(
+          current_user,
+          params
+        )
+        { result: true }.camelize_keys
+      end
+
       resource :interests do
         desc "ログイン中のユーザーのフォロー情報を更新します"
         post '/follow' do

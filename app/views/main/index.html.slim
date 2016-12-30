@@ -1,3 +1,8 @@
 script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async='async'
 #app
 = javascript_include_tag webpack_asset_path('main.js')
+javascript:
+  OneSignal.push(['init', {
+    appId: '71f4dc03-743d-4995-8755-58d74502ecf9',
+    autoRegister: true
+  }]);

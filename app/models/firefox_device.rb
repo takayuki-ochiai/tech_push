@@ -1,0 +1,2 @@
+class FirefoxDevice < Device
+end

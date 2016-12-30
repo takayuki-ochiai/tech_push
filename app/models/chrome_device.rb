@@ -1,0 +1,2 @@
+class ChromeDevice < Device
+end

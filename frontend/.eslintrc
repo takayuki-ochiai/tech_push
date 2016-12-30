@@ -29,7 +29,8 @@
   },
   "globals": {
     "it": true,
-    "describe": true
+    "describe": true,
+    "OneSignal": true,
   },
   "parserOptions": {
     "sourceType": "module"

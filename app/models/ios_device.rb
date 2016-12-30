@@ -1,0 +1,2 @@
+class IOSDevice < Device
+end

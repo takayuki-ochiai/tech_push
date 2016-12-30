@@ -5,6 +5,8 @@ class User < ApplicationRecord
   has_many :notifiers
   has_many :books, through: :notifiers
 
+  has_many :devices
+
   # validates :name, presence: true
   # validates :email, presence: true
   # validates :encrypted_password, presence: true
