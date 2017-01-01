@@ -24,9 +24,12 @@ module V1
       end
 
       post '/device' do
-        Device.create_suitable_device!(
-          current_user,
-          params
+        Device.create!(
+          user_id: current_user.id,
+          one_signal_player_id: params[:one_signal_player_id],
+          device_model: params[:device_model],
+          device_os: params[:device_os],
+          type: "#{params[:type]}Device"
         )
         { result: true }.camelize_keys
       end
