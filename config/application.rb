@@ -11,7 +11,6 @@ module Base
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-    #
 
     # dotenvで.envを読み込み
     Dotenv::Railtie.load
@@ -19,20 +18,15 @@ module Base
     # ライブラリ直下のファイルを読み込む
     config.autoload_paths += %W(#{config.root}/lib)
 
+    # app/models内のサブディレクトリのファイルが読み込まれるようにする
+    config.autoload_paths += Dir[Rails.root.join('app', 'models', '{*/}')]
+
     # app/customs
     config.paths.add File.join('app', 'customs'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'customs', '*')]
 
-    # app/errors/ 下のRuby ファイルが読み込まれるようにする
-    config.paths.add File.join('app', 'errors'), glob: File.join('**', '*.rb')
-    config.autoload_paths += Dir[Rails.root.join('app', 'errors', '*')]
-
     # app/apis/ 下の Ruby ファイルが読み込まれるようにする
     config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'apis', '*')]
-
-    # app/serializers/ 下の Ruby ファイルが読み込まれるようにする
-    config.paths.add File.join('app', 'serializers'), glob: File.join('**', '*.rb')
-    config.autoload_paths += Dir[Rails.root.join('app', 'serializers', '*')]
   end
 end
