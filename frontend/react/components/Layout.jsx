@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Drawer from 'material-ui/Drawer';
+import IconButton from 'material-ui/IconButton';
+import MenuIcon from 'material-ui/svg-icons/navigation/menu';
+import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
 import { withRouter } from 'react-router';
@@ -15,7 +18,8 @@ class Layout extends Component {
     this.openSideMenu = this.openSideMenu.bind(this);
     this.closeSideMenu = this.closeSideMenu.bind(this);
     this.onRequestChangeSideMenu = this.onRequestChangeSideMenu.bind(this);
-    this.onHeaderLeftIconTouchTap = this.onHeaderLeftIconTouchTap.bind(this);
+    this.onMenuLeftIconTouchTap = this.onMenuLeftIconTouchTap.bind(this);
+    this.onArrowBackIconTouchTap = this.onArrowBackIconTouchTap.bind(this);
   }
 
   onRequestChangeSideMenu(open) {
@@ -24,9 +28,14 @@ class Layout extends Component {
     }
   }
 
-  onHeaderLeftIconTouchTap(event) {
+  onMenuLeftIconTouchTap(event) {
     event.preventDefault();
     this.openSideMenu();
+  }
+
+  onArrowBackIconTouchTap(event) {
+    event.preventDefault();
+    this.props.router.goBack();
   }
 
   openSideMenu() {
@@ -41,13 +50,36 @@ class Layout extends Component {
     });
   }
 
+  renderLeftIcon() {
+    const pathname = this.props.location.pathname;
+    switch (true) {
+      case /\/topics\/edit\/(\d+)/.test(pathname):
+        return (
+          <IconButton
+            onTouchTap={this.onArrowBackIconTouchTap}
+          >
+            <ArrowBackIcon />
+          </IconButton>
+        );
+      default:
+        return (
+          <IconButton
+            onTouchTap={this.onMenuLeftIconTouchTap}
+          >
+            <MenuIcon />
+          </IconButton>
+        );
+    }
+  }
+
   render() {
     const router = this.props.router;
     return (
       <div>
         <AppBar
           title="Tech Push"
-          onLeftIconButtonTouchTap={this.onHeaderLeftIconTouchTap}
+          // onLeftIconButtonTouchTap={this.onHeaderLeftIconTouchTap}
+          iconElementLeft={this.renderLeftIcon()}
         />
         <Drawer
           open={this.state.isSideMenuOpen}
