@@ -1,3 +1,30 @@
 // Place all the styles related to the main controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.wrapper {
+  position: relative;
+}
+
+.content {
+  position: absolute;
+  width: 100%;
+  background-color: white;
+}
+
+.slideRight-enter {
+  transform: translateX(100%);
+  transition: transform 0.4s ease-in;
+}
+
+.slideRight-enter.slideRight-enter-active {
+  transform: translateX(0%);
+}
+
+.slideRight-leave {
+  transform: translateX(0%);
+  transition: transform 0.4s ease-in;
+}
+
+.slideRight-leave.slideRight-leave-active {
+  transform: translateX(-20%);
+}

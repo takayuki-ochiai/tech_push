@@ -56,7 +56,10 @@ class TopicSettingsContainer extends MicroContainer {
   }
 
   goChildTopics(topicId) {
-    this.props.router.push(`/topics/edit/${topicId}`);
+    this.props.router.push({
+      pathname: `/topics/edit/${topicId}`,
+      query: { transition: 'slideRight' }
+    });
   }
 
   /**

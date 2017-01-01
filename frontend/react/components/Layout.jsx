@@ -5,9 +5,13 @@ import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
+import ReactCSSTransitionGroup from "react-addons-css-transition-group"
 import { withRouter } from 'react-router';
-import transitionStyle from '../../stylesheet/routerTransition.css';
+// import transitionStyle from '../../stylesheet/routerTransition.css';
 
+const NO_ANIMATION = 'noAnimation';
+const SLIDE_LEFT = 'slideLeft';
+const SLIDE_RIGHT = 'slideRight';
 
 class Layout extends Component {
   constructor() {
@@ -74,11 +78,14 @@ class Layout extends Component {
 
   render() {
     const router = this.props.router;
+    const transition = this.props.location.query.transition || NO_ANIMATION;
+    const transitionEnterTimeout = transition === NO_ANIMATION ? 1 : 400;
+    const transitionLeaveTimeout = transition === NO_ANIMATION ? 1 : 400;
+    const childElement = <div className="content">{this.props.children}</div>;
     return (
       <div>
         <AppBar
           title="Tech Push"
-          // onLeftIconButtonTouchTap={this.onHeaderLeftIconTouchTap}
           iconElementLeft={this.renderLeftIcon()}
         />
         <Drawer
@@ -96,8 +103,19 @@ class Layout extends Component {
             トピックの設定
           </MenuItem>
         </Drawer>
-        <div className={transitionStyle.content}>
-          {this.props.children}
+        <div className="wrapper">
+          <ReactCSSTransitionGroup
+            transitionName={transition}
+            transitionEnterTimeout={transitionEnterTimeout}
+            transitionLeaveTimeout={transitionLeaveTimeout}
+          >
+            {
+              React.cloneElement(
+                childElement,
+                { key: this.props.location.pathname }
+              )
+            }
+          </ReactCSSTransitionGroup>
         </div>
       </div>
     );
