@@ -36,3 +36,9 @@ development:
   database: tech_push_db_development
   username: dbuser
   password: <%=ENV['DATABASE_PASSWORD']%>
+
+staging:
+  <<: *default
+  database: <%=ENV['STAGING_DB_NAME']%>
+  username: <%=ENV['STAGING_DB_USER']%>
+  password: <%=ENV['STAGING_DB_PASSWORD']%>
