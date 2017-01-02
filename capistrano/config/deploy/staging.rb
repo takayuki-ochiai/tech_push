@@ -1,3 +1,6 @@
+set :stage, :staging
+set :rails_env, 'staging'
+
 # EC2サーバーのIP、EC2サーバーにログインするユーザー名、サーバーのロールを記述
 server '52.199.74.173', user: 'suidenOTI', roles: %w{app}
 #デプロイするサーバーにsshログインする鍵の情報を記述

@@ -45,6 +45,11 @@ group :development do
   gem 'capistrano-rbenv'
   # gem 'capistrano-rbenv-vars'
   gem 'capistrano-bundler'
+
+  # プロビジョニングツールとしてitamaeを導入
+  gem 'itamae'
+  # テスト導入
+  gem "capistrano-itamae", require: false
 end
 
 # Handle camel/snake/dash case conversion
