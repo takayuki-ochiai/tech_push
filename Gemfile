@@ -38,6 +38,15 @@ gem 'omniauth-github'
 # .envから環境変数を読み込む
 gem 'dotenv-rails'
 
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano3-puma'
+  gem 'capistrano-rbenv'
+  # gem 'capistrano-rbenv-vars'
+  gem 'capistrano-bundler'
+end
+
 # Handle camel/snake/dash case conversion
 # gem "olive_branch"
 # -------------------------------------------------------
