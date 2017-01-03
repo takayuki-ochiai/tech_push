@@ -29,16 +29,18 @@ default: &default
   encoding: utf8
   reconnect: false
   pool: 5
-  socket: /tmp/mysql.sock
+
 
 development:
   <<: *default
+  socket: /tmp/mysql.sock
   database: tech_push_db_development
   username: dbuser
   password: <%=ENV['DATABASE_PASSWORD']%>
 
 staging:
   <<: *default
+  socket: /var/lib/mysql/mysql.sock
   database: <%=ENV['STAGING_DB_NAME']%>
   username: <%=ENV['STAGING_DB_USER']%>
   password: <%=ENV['STAGING_DB_PASSWORD']%>
