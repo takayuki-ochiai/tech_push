@@ -5,6 +5,11 @@ set :rails_env, 'staging'
 server '52.199.74.173', user: 'suidenOTI', roles: %w{app}
 #デプロイするサーバーにsshログインする鍵の情報を記述
 set :ssh_options, keys: '~/.ssh/tech_push_st_rsa'
+
+# capistrano-rbenvを利用してdeploy時にも環境変数を反映させる
+# http://qiita.com/kenjiszk/items/2e45660ce3b46596dfa1
+set :rbenv_prefix, "source /etc/profile.d/env_vars.sh && RAILS_ENV=#{fetch(:stage)} /usr/local/rbenv/bin/rbenv exec"
+
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.

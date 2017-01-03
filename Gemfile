@@ -43,7 +43,6 @@ group :development do
   gem 'capistrano-rails'
   gem 'capistrano3-puma'
   gem 'capistrano-rbenv'
-  # gem 'capistrano-rbenv-vars'
   gem 'capistrano-bundler'
 
   # プロビジョニングツールとしてitamaeを導入

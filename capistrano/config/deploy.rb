@@ -4,19 +4,27 @@ lock "3.7.1"
 set :application, "tech_push"
 set :repo_url, "git@github.com:takayuki-ochiai/tech_push.git"
 
+# gitのリポジトリ接続に使う鍵
+set :ssh_options, {
+  # capistranoコマンド実行者の秘密鍵
+  keys: %w(~/.ssh/id_rsa),
+  forward_agent: true,
+  auth_methods: %w(publickey)
+}
+
 # Default branch is :master
 set :branch, ENV['BRANCH'] || 'master'
 
 # deployするときのUser名（サーバ上にこの名前のuserが存在しAccessできることが必要）
-set :user, 'suidenOTI'
 
 set :puma_threds,  [4, 16]
 set :puma_workers, 0
 set :pty, true
+#rbenvのoathが間違っているとrubyがインストールできていても認識してくれない
+set :rbenv_path, '/usr/local/rbenv'
 set :rbenv_ruby, '2.3.1'
 
 set :use_sudo, false
-set :stage, :production
 set :deploy_via, :remote_cache
 
 # 必要に応じて、gitignoreしているファイルにLinkを貼る
@@ -24,10 +32,10 @@ set :linked_files, %w{.env}
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 # deploy先サーバにおく場所
-set :deploy_to, "/var/www/#{fetch(:application)}"
+set :deploy_to, "/home/suidenOTI/#{fetch(:application)}"
 
 # bundle
-set :bundle_path, -> { shared_path.join('vendor/bundle') }
+# set :bundle_path, -> { shared_path.join('vendor/bundle') }
 
 # Set Gemfile
 # set :bundle_gemfile,  "/var/www/#{fetch(:application)}/Gemfile"
@@ -81,20 +89,24 @@ namespace :deploy do
     end
   end
 
+  desc '各環境で共通のファイルをアップロードする'
+  task :upload_common_file do
+    on roles(:app) do |host|
+      # .envファイルをshared_pathにアップロード
+      # アップロードされた.envはシンボリックリンク経由で使用する
+      # TODO 開発環境マックのPATH直書きしてるのはどうにかしたい
+      upload!('/Users/TakayukiOchiai/rails5/tech_push/config/puma.rb', "#{shared_path}/puma.rb")
+    end
+  end
+
+
+  before :check,        :upload_common_file
+  # before :check,        :upload_env_file
   before :starting,     :confirm
   after  :finishing,    :compile_assets
   after  :finishing,    :cleanup
 end
 
-namespace :itamae do
-  # apply前にdeployを実行します
-  task :apply => [:deploy] do
-    run_locally do
-      # 対象ホスト側にItamaeがインストールされている必要があります
-      itamae_ssh '../../itamae/recipes/ruby_build.rb'
-    end
-  end
-end
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
