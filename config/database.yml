@@ -41,6 +41,7 @@ development:
 staging:
   <<: *default
   socket: /var/lib/mysql/mysql.sock
+  host: <%=ENV['STAGING_DB_HOST']%>
   database: <%=ENV['STAGING_DB_NAME']%>
   username: <%=ENV['STAGING_DB_USER']%>
   password: <%=ENV['STAGING_DB_PASSWORD']%>
