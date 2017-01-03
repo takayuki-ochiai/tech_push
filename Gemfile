@@ -20,7 +20,7 @@ gem 'api-pagination'
 # api client
 gem 'faraday'
 # api response
-gem 'active_model_serializers'
+gem 'active_model_serializers', '~> 0.10.0'
 # batch
 gem 'whenever', :require => false
 # cache
@@ -48,12 +48,8 @@ group :development do
 
   # プロビジョニングツールとしてitamaeを導入
   gem 'itamae'
-  # テスト導入
-  gem "capistrano-itamae", require: false
 end
 
-# Handle camel/snake/dash case conversion
-# gem "olive_branch"
 # -------------------------------------------------------
 
 
