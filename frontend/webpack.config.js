@@ -18,7 +18,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const devtool    = DEBUG ? '#eval-source-map' : '#eval';
 // const fileName   = DEBUG ? '[name]' : '[name]-[hash]';
 // 本番ビルドの時はassets pipelineに乗せるためerbの拡張子くっつける
-const fileName   = DEBUG ? '[name]' : '[name].erb';
+const filename   = DEBUG ? '[name].js' : '[name].js.erb';
 const publicPath = DEBUG ? 'https://localhost:3500/assets/' : '/assets/';
 
 const plugins = [
@@ -66,7 +66,7 @@ module.exports = {
     // path: '../public/assets',
     path: `${__dirname}/../app/assets/javascripts`,
     publicPath,
-    filename: `${fileName}.js`,
+    filename
   },
   plugins,
   module: {
