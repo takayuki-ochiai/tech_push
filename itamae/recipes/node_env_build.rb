@@ -31,3 +31,7 @@ end
 execute "nvm use stable" do
   command ". #{NVM_DIR}/nvm.sh; nvm use #{NODE_VERSION}"
 end
+
+execute "npm global install" do
+  command ". #{NVM_DIR}/nvm.sh; npm install -g webpack@1.13.0"
+end
