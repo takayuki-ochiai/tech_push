@@ -13,6 +13,8 @@ set :ssh_options, keys: '~/.ssh/tech_push_st_rsa'
 set :rbenv_prefix, "source /etc/profile.d/env_vars.sh && RAILS_ENV=#{fetch(:stage)} /usr/local/rbenv/bin/rbenv exec"
 
 set :linked_files, %w{log/staging.log log/puma.error.log log/puma.access.log tmp/pids/puma.pid tmp/pids/puma.state}
+set :linked_dirs, %w{frontend/node_modules config/environments/staging}
+
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.

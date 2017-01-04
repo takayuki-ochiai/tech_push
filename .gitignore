@@ -27,7 +27,8 @@ npm-debug.log
 capistrano/log
 
 # develop環境のオレオレ証明書などを置いてあるフォルダなのでignore
-config/environments/develop_secrets
+config/environments/development
+config/environments/staging
 
 # 環境変数などが書いてあるファイルはignore
 .env

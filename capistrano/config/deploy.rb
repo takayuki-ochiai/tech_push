@@ -29,7 +29,6 @@ set :deploy_via, :remote_cache
 
 # 必要に応じて、gitignoreしているファイルにLinkを貼る
 set :linked_files, %w{.env}
-set :linked_dirs, %w{frontend/node_modules}
 
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
@@ -135,6 +134,19 @@ namespace :deploy do
         upload!("#{DEVELOP_PROJECT_DIR}/frontend/package.json", "#{shared_path}/frontend/package.json")
         execute("cd #{shared_path}/frontend; npm install")
       end
+
+      # sshキーをアップロード
+      unless test("[ -d #{shared_path}/config/environments/#{fetch(:stage)} ]")
+        execute "mkdir -p #{shared_path}/config/environments/#{fetch(:stage)}"
+      end
+      upload!(
+        "#{DEVELOP_PROJECT_DIR}/config/environments/#{fetch(:stage)}/server.key",
+        "#{shared_path}/config/environments/#{fetch(:stage)}/server.key"
+      )
+      upload!(
+        "#{DEVELOP_PROJECT_DIR}/config/environments/#{fetch(:stage)}/server.crt",
+        "#{shared_path}/config/environments/#{fetch(:stage)}/server.crt"
+      )
     end
 
   end
@@ -149,8 +161,10 @@ namespace :deploy do
 
   desc 'npm installを実行'
   task :npm_install do
-    upload!("#{DEVELOP_PROJECT_DIR}/frontend/package.json", "#{shared_path}/frontend/package.json")
-    execute("cd #{shared_path}/frontend; npm install")
+    on roles(:app) do
+      upload!("#{DEVELOP_PROJECT_DIR}/frontend/package.json", "#{shared_path}/frontend/package.json")
+      execute("cd #{shared_path}/frontend; npm install")
+    end
   end
 
 

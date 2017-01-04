@@ -12,27 +12,26 @@ threads threads_count, threads_count
 port        ENV.fetch("PORT") { 3000 }
 
 # Specifies the `environment` that Puma will run in.
-#
-environment ENV.fetch("RAILS_ENV") { "development" }
+
+RAILS_ENV = ENV.fetch("RAILS_ENV") { "development" }
+
+environment RAILS_ENV
 
 # SSLで必要な証明書などのパスを設定する。
-if "development" == ENV.fetch("RAILS_ENV") { "development" }
-  key =  File.expand_path "../environments/develop_secrets/server.key", __FILE__
-  cert = File.expand_path "../environments/develop_secrets/server.crt", __FILE__
-  ssl_bind '0.0.0.0', '9292', {
-    key: key,
-    cert: cert,
-    # ca: "environments/develop_secrets/", # オレオレ証明書の場合は必要ないです／中間証明書が必要な場合は指定してください
-    verify_mode: "none"
-  }
-end
-
 rails_root = Dir.pwd
-if "development" != ENV.fetch("RAILS_ENV") { "development" }
+key = File.join(rails_root, "config", "environments", RAILS_ENV, "server.key")
+cert = File.join(rails_root, "config", "environments", RAILS_ENV, "server.crt")
+ssl_bind '0.0.0.0', '9292', {
+  key: key,
+  cert: cert,
+  # ca: "environments/develop_secrets/", # オレオレ証明書の場合は必要ないです／中間証明書が必要な場合は指定してください
+  verify_mode: "none"
+}
+
+if "development" != RAILS_ENV
   pidfile File.join(rails_root, 'tmp', 'pids', 'puma.pid')
   state_path File.join(rails_root, 'tmp', 'pids', 'puma.state')
 end
-
 
 stdout_redirect(  # pumaのログをlog/以下に出力する。trueは追記モード。
   File.join(rails_root, 'log', 'puma.access.log'),

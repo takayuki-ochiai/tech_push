@@ -5,8 +5,8 @@ class OneSignalApiClient
   # 初期化処理
   # app_idとapi_keyは環境変数から取得を想定
   def initialize(app_id, rest_api_key)
-    @rest_api_key = rest_api_key || ENV["APP_ID"]
-    @app_id = app_id || ENV["REST_API_KEY"]
+    @rest_api_key = rest_api_key || ENV["ONESIGNAL_APP_ID"]
+    @app_id = app_id || ENV["ONESIGNAL_REST_API_KEY"]
     @conn = Faraday::Connection.new(:url => URI) do |builder|
       builder.use Faraday::Adapter::NetHttp     # Net/HTTP をアダプターに使う
     end
