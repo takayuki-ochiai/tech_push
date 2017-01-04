@@ -35,6 +35,8 @@ Rails.application.configure do
   config.assets.debug = false
   config.assets.enabled = true
   config.assets.compile = true
+  # app/assets/javascripts/main.jsをダイジェスト化させる設定を追加
+  config.assets.precompile += ['main.js']
 
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb

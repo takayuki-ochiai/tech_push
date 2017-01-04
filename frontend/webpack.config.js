@@ -16,7 +16,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
  * Environment settings
  */
 const devtool    = DEBUG ? '#eval-source-map' : '#eval';
-const fileName   = DEBUG ? '[name]' : '[name]-[hash]';
+// const fileName   = DEBUG ? '[name]' : '[name]-[hash]';
+const fileName   = '[name]';
 const publicPath = DEBUG ? 'https://localhost:3500/assets/' : '/assets/';
 
 const plugins = [
@@ -61,9 +62,8 @@ module.exports = {
   },
   entry: entrySources,
   output: {
-    // path: path.join(__dirname, '../public/dist'),
-    // path: `${__dirname}/public/assets`,
-    path: '../public/assets',
+    // path: '../public/assets',
+    path: '../app/assets/javascripts',
     publicPath,
     filename: `${fileName}.js`,
   },
