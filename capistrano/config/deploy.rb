@@ -29,6 +29,8 @@ set :deploy_via, :remote_cache
 
 # 必要に応じて、gitignoreしているファイルにLinkを貼る
 set :linked_files, %w{.env}
+set :linked_dirs, %w{frontend/node_modules}
+
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 # deploy先サーバにおく場所
@@ -46,14 +48,16 @@ set :deploy_to, "/home/suidenOTI/#{fetch(:application)}"
 set :puma_bind,       "unix://#{shared_path}/tmp/sockets/#{fetch(:application)}-puma.sock"
 set :puma_state,      "#{shared_path}/tmp/pids/puma.state"
 set :puma_pid,        "#{shared_path}/tmp/pids/puma.pid"
-set :puma_access_log, "#{release_path}/log/puma.error.log"
-set :puma_error_log,  "#{release_path}/log/puma.access.log"
+set :puma_access_log, "#{shared_path}/log/puma.error.log"
+set :puma_error_log,  "#{shared_path}/log/puma.access.log"
 set :ssh_options,     { forward_agent: true, user: fetch(:user), keys: %w(~/.ssh/id_rsa.pub), port: 22 }
 set :puma_preload_app, true
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true  # Change to false when not using ActiveRecord
 
 set :keep_releases, 5
+
+DEVELOP_PROJECT_DIR = "/Users/TakayukiOchiai/rails5/tech_push"
 
 namespace :puma do
   desc 'Create Directories for Puma Pids and Socket'
@@ -84,27 +88,82 @@ namespace :deploy do
   desc 'Initial Deploy'
   task :initial do
     on roles(:app) do
-      before 'deploy:restart', 'puma:start'
+      # before 'deploy:restart', 'puma:start'
       invoke 'deploy'
+    end
+  end
+
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      puts "restartだよ"
+      invoke 'puma:restart'
     end
   end
 
   desc '各環境で共通のファイルをアップロードする'
   task :upload_common_file do
     on roles(:app) do |host|
-      # .envファイルをshared_pathにアップロード
-      # アップロードされた.envはシンボリックリンク経由で使用する
       # TODO 開発環境マックのPATH直書きしてるのはどうにかしたい
-      upload!('/Users/TakayukiOchiai/rails5/tech_push/config/puma.rb', "#{shared_path}/puma.rb")
+      upload!("#{DEVELOP_PROJECT_DIR}/config/puma.rb", "#{shared_path}/puma.rb")
     end
   end
 
+  desc 'sharedディレクトリに必要なファイルを用意する'
+  task :prepare_shared do
+    on roles(:app) do |host|
+      unless test("[ -d #{shared_path}/log ]")
+        execute "mkdir #{shared_path}/log"
+      end
+
+      unless test("[ -f #{shared_path}/log/puma.error.log ]")
+        execute "cd #{shared_path}/log; touch puma.error.log"
+      end
+
+      unless test("[ -f #{shared_path}/log/puma.access.log ]")
+        execute "cd #{shared_path}/log; touch puma.access.log"
+      end
+
+      unless test("[ -f #{shared_path}/log/staging.log ]")
+        execute "cd #{shared_path}/log; touch staging.log"
+      end
+
+      # node_modulesが存在しない場合はpackage.jsonをアップロードしてshared_path内部でnpm install実施
+      # shared_pathに置いておかないとデプロイの度にfullでnpm installする羽目になり、むちゃくちゃ重い
+      unless test("[ -d #{shared_path}/frontend/node_modules ]")
+        execute "mkdir #{shared_path}/frontend"
+        upload!("#{DEVELOP_PROJECT_DIR}/frontend/package.json", "#{shared_path}/frontend/package.json")
+        execute("cd #{shared_path}/frontend; npm install")
+      end
+    end
+
+  end
+
+  desc 'nodeによってjsをビルド'
+  task :transpile_js do
+    on roles(:app) do |host|
+      stdout = capture "cd #{release_path}/frontend; npm run build"
+      puts stdout
+    end
+  end
+
+  desc 'npm installを実行'
+  task :npm_install do
+    upload!("#{DEVELOP_PROJECT_DIR}/frontend/package.json", "#{shared_path}/frontend/package.json")
+    execute("cd #{shared_path}/frontend; npm install")
+  end
+
+
 
   before :check,        :upload_common_file
-  # before :check,        :upload_env_file
+  before :check,        :prepare_shared
   before :starting,     :confirm
-  after  :finishing,    :compile_assets
+
   after  :finishing,    :cleanup
+
+  namespace :assets do
+    before :precompile,    :transpile_js
+  end
 end
 
 # Default branch is :master

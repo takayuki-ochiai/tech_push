@@ -27,6 +27,19 @@ if "development" == ENV.fetch("RAILS_ENV") { "development" }
   }
 end
 
+rails_root = Dir.pwd
+if "development" != ENV.fetch("RAILS_ENV") { "development" }
+  pidfile File.join(rails_root, 'tmp', 'pids', 'puma.pid')
+  state_path File.join(rails_root, 'tmp', 'pids', 'puma.state')
+end
+
+
+stdout_redirect(  # pumaのログをlog/以下に出力する。trueは追記モード。
+  File.join(rails_root, 'log', 'puma.access.log'),
+  File.join(rails_root, 'log', 'puma.error.log'),
+  true
+)
+
 # Specifies the number of `workers` to boot in clustered mode.
 # Workers are forked webserver processes. If using threads and workers together
 # the concurrency of the application would be max `threads` * `workers`.

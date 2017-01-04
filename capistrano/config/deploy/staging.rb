@@ -2,7 +2,9 @@ set :stage, :staging
 set :rails_env, 'staging'
 
 # EC2サーバーのIP、EC2サーバーにログインするユーザー名、サーバーのロールを記述
-server '52.199.74.173', user: 'suidenOTI', roles: %w{app}
+# dbのロールを記載していないとrake db:migrateしてくれない
+# webのロールを記載していないとassets precompileしてくれない
+server '52.199.74.173', user: 'suidenOTI', roles: %w{app db web}
 #デプロイするサーバーにsshログインする鍵の情報を記述
 set :ssh_options, keys: '~/.ssh/tech_push_st_rsa'
 
@@ -10,6 +12,7 @@ set :ssh_options, keys: '~/.ssh/tech_push_st_rsa'
 # http://qiita.com/kenjiszk/items/2e45660ce3b46596dfa1
 set :rbenv_prefix, "source /etc/profile.d/env_vars.sh && RAILS_ENV=#{fetch(:stage)} /usr/local/rbenv/bin/rbenv exec"
 
+set :linked_files, %w{log/staging.log log/puma.error.log log/puma.access.log tmp/pids/puma.pid tmp/pids/puma.state}
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.
