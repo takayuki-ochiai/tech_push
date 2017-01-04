@@ -112,7 +112,7 @@ namespace :deploy do
   task :prepare_shared do
     on roles(:app) do |host|
       unless test("[ -d #{shared_path}/log ]")
-        execute "mkdir #{shared_path}/log"
+        execute "mkdir -p #{shared_path}/log"
       end
 
       unless test("[ -f #{shared_path}/log/puma.error.log ]")
@@ -127,13 +127,25 @@ namespace :deploy do
         execute "cd #{shared_path}/log; touch staging.log"
       end
 
+      unless test("[ -d #{shared_path}/tmp/pids ]")
+        execute "mkdir -p #{shared_path}/tmp/pids"
+      end
+
+      unless test("[ -f #{shared_path}/tmp/pids/puma.pid ]")
+        execute "cd #{shared_path}/tmp/pids; touch puma.pid"
+      end
+
+      unless test("[ -f #{shared_path}/tmp/pids/puma.state ]")
+        execute "cd #{shared_path}/tmp/pids; touch puma.state"
+      end
+
       # node_modulesが存在しない場合はpackage.jsonをアップロードしてshared_path内部でnpm install実施
       # shared_pathに置いておかないとデプロイの度にfullでnpm installする羽目になり、むちゃくちゃ重い
       unless test("[ -d #{shared_path}/frontend/node_modules ]")
-        execute "mkdir #{shared_path}/frontend"
-        upload!("#{DEVELOP_PROJECT_DIR}/frontend/package.json", "#{shared_path}/frontend/package.json")
-        execute("cd #{shared_path}/frontend; npm install")
+        execute "mkdir -p #{shared_path}/frontend"
       end
+      upload!("#{DEVELOP_PROJECT_DIR}/frontend/package.json", "#{shared_path}/frontend/package.json")
+      execute("cd #{shared_path}/frontend; npm install")
 
       # sshキーをアップロード
       unless test("[ -d #{shared_path}/config/environments/#{fetch(:stage)} ]")
@@ -163,7 +175,7 @@ namespace :deploy do
   task :npm_install do
     on roles(:app) do
       upload!("#{DEVELOP_PROJECT_DIR}/frontend/package.json", "#{shared_path}/frontend/package.json")
-      execute("cd #{shared_path}/frontend; npm install")
+      execute("cd #{release_path}/frontend; npm install")
     end
   end
 
@@ -180,8 +192,8 @@ namespace :deploy do
 
 
 
-  before :check,        :upload_common_file
   before :check,        :prepare_shared
+  after  :updated,        :upload_common_file
   before :starting,     :confirm
 
   after  :finishing,    :cleanup
