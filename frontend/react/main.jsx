@@ -26,8 +26,6 @@ function delay(millSecond) {
 }
 
 async function fetchPlayerId() {
-  console.log('call Onesignal');
-  console.log(OneSignal);
   let playerId = await OneSignal.getUserId();
   while (!playerId) {
     playerId = await OneSignal.getUserId();
