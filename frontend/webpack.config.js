@@ -54,6 +54,8 @@ if (DEBUG) {
   entrySources.unshift('react-hot-loader/patch');
 }
 
+console.log('dirnameは');
+console.log(__dirname);
 module.exports = {
   debug: true,
   devtool,
