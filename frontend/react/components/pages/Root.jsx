@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+console.log('test');
 class Root extends Component {
   render() {
     return (
