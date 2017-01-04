@@ -32,7 +32,7 @@ if (!DEBUG) {
   plugins.push(new ManifestPlugin({ fileName: 'webpack-manifest.json' }));
   plugins.push(new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }));
   plugins.push(new CleanWebpackPlugin(['assets'], {
-    root: `${__dirname}/public`,
+    root: `${__dirname}/../public`,
     verbose: true,
     dry: false
   }));
