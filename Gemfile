@@ -38,6 +38,9 @@ gem 'omniauth-github'
 # .envから環境変数を読み込む
 gem 'dotenv-rails'
 
+# 楽天接続用
+gem 'rakuten_web_service'
+
 group :development do
   gem 'capistrano'
   gem 'capistrano-rails'
