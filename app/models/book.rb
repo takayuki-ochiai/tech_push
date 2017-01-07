@@ -15,9 +15,7 @@ class Book < ApplicationRecord
     book = Book.find_by(isbn: self.isbn)
     if book.present?
       attributes = self.attributes
-      attributes.delete("id")
-      attributes.delete("created_at")
-      attributes.delete("updated_at")
+      attributes.except!("id", "created_at", "updated_at")
       attributes["display_flg"] = book.display_flg
       book.update!(attributes)
     else

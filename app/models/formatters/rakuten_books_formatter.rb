@@ -1,6 +1,6 @@
 module RakutenBooksFormatter
   def self.format(item)
-    sale_date = Date.strptime(item.sales_date, "%Y年%m月%d日") rescue nil
+    sales_date = Date.strptime(item.sales_date, "%Y年%m月%d日") rescue nil
 
     if sale_date.present?
       book = Book.new(
@@ -14,7 +14,7 @@ module RakutenBooksFormatter
         large_image_url: item.large_image_url,
         isbn: item.isbn,
         price: item.item_price,
-        sales_date: sale_date
+        sales_date: sales_date
       )
     end
     book
