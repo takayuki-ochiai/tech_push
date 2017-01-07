@@ -23,12 +23,21 @@ ActiveRecord::Schema.define(version: 20161230075859) do
   end
 
   create_table "books", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.string   "title",      null: false
-    t.string   "publisher",  null: false
-    t.integer  "price",      null: false
-    t.date     "published",  null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "title",                            null: false
+    t.string   "title_kana"
+    t.string   "publisher_name",                   null: false
+    t.string   "author",                           null: false
+    t.string   "author_kana"
+    t.string   "small_image_url"
+    t.string   "medium_image_url"
+    t.string   "large_image_url"
+    t.string   "isbn",                             null: false
+    t.integer  "price",                            null: false
+    t.boolean  "display_flg",      default: false, null: false
+    t.date     "sales_date",                       null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.index ["isbn"], name: "index_books_on_isbn", unique: true, using: :btree
   end
 
   create_table "devices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

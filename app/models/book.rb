@@ -5,7 +5,10 @@ class Book < ApplicationRecord
   has_many :users, through: :notifiers
 
   validates :title, presence: true
-  validates :publisher, presence: true
+  validates :publisher_name, presence: true
   validates :price, presence: true
-  validates :published, presence: true
+  validates :sales_date, presence: true
+  validates :isbn, presence: true, uniqueness: true
+  validates :author, presence: true
+  validates :display_flg, presence: true
 end
