@@ -9,6 +9,19 @@ class Book < ApplicationRecord
   validates :price, presence: true
   validates :sales_date, presence: true
   validates :isbn, presence: true, uniqueness: true
-  validates :author, presence: true
-  validates :display_flg, presence: true
+  validates :display_flg, inclusion: {in: [true, false]}
+
+  def save_with_isbn
+    book = Book.find_by(isbn: self.isbn)
+    if book.present?
+      attributes = self.attributes
+      attributes.delete("id")
+      attributes.delete("created_at")
+      attributes.delete("updated_at")
+      attributes["display_flg"] = book.display_flg
+      book.update!(attributes)
+    else
+      self.save
+    end
+  end
 end
