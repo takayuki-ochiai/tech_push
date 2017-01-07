@@ -21,10 +21,6 @@ module Base
     # app/models内のサブディレクトリのファイルが読み込まれるようにする
     config.autoload_paths += Dir[Rails.root.join('app', 'models', '{*/}')]
 
-    # app/customs
-    config.paths.add File.join('app', 'customs'), glob: File.join('**', '*.rb')
-    config.autoload_paths += Dir[Rails.root.join('app', 'customs', '*')]
-
     # app/apis/ 下の Ruby ファイルが読み込まれるようにする
     config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'apis', '*')]
