@@ -6,4 +6,8 @@ class ApplicationController < ActionController::Base
     return if user_signed_in?
     redirect_to signin_path
   end
+
+  def admin?
+    current_user.admin?
+  end
 end

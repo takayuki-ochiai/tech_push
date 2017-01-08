@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(version: 20161230075859) do
     t.string   "image"
     t.string   "email"
     t.text     "access_token",           limit: 65535
+    t.boolean  "admin_flg"
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
     t.index ["email"], name: "index_users_on_email", using: :btree

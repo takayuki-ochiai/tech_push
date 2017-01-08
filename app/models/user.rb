@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   has_many :devices
 
+  validates :admin_flg, inclusion: {in: [true, false]}
+
   # validates :name, presence: true
   # validates :email, presence: true
   # validates :encrypted_password, presence: true
@@ -33,5 +35,9 @@ class User < ApplicationRecord
     if user && Devise.secure_compare(user.access_token, access_token)
       user
     end
+  end
+
+  def admin?
+    User.admin_flg
   end
 end
