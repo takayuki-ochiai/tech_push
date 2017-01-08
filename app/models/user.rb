@@ -38,6 +38,6 @@ class User < ApplicationRecord
   end
 
   def admin?
-    User.admin_flg
+    self.admin_flg
   end
 end

@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'main#index'
   get 'signin', to: 'sessions#index'
-  # resources :
-  # root to: 'sessions#index'
+
+  namespace :admin do
+    resources :books
+  end
 end

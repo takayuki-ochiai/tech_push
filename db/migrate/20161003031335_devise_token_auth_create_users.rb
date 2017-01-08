@@ -42,7 +42,7 @@ class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[5.0]
       ## Tokens
       t.text :access_token
 
-      t.boolean :admin_flg
+      t.boolean :admin_flg, default: false
 
       t.timestamps
     end
