@@ -4,10 +4,13 @@ const TopicBase = new Record({
   id: null,
   name: null,
   type: null,
-  parentId: null,
   isFollow: false
 });
 
-export default class Topic extends TopicBase {
+const FIRST_TOPIC = 'FirstTopic';
 
+export default class Topic extends TopicBase {
+  isFirstTopic() {
+    return this.type === FIRST_TOPIC;
+  }
 }

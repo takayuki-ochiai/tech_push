@@ -15,8 +15,9 @@ class TopicSettings extends Component {
 
   hasChildTopic(targetTopic) {
     const store = this.props.store;
-    const topics = store.topics;
-    return topics.some(topic => targetTopic.id === topic.parentId);
+    const topicTreePathes = store.topicTreePathes;
+    return topicTreePathes.some(treePath => treePath.ancestorId === targetTopic.id);
+    // return topics.some(topic => targetTopic.id === topic.parentId);
   }
 
   renderRightIcon(targetTopic) {
@@ -56,9 +57,19 @@ class TopicSettings extends Component {
     let listFilter;
     if (this.props.parentId) {
       const parentId = this.props.parentId;
-      listFilter = topic => topic.parentId === parentId;
+      const topicTreePathes = store.topicTreePathes;
+      // 該当のparentIdのTopicを先祖に持つTopicをフィルタリングする
+      // parentIdを先祖idに持つTopicTreePathの子孫idで
+      const descendantTopicIds = topicTreePathes
+        .filter(treePath => treePath.ancestorId === parentId)
+        .map(treePath => treePath.descendantId);
+
+      listFilter = topic => (
+        (topic.id !== parentId && descendantTopicIds.includes(topic.id))
+      );
     } else {
-      listFilter = topic => !topic.parentId;
+      // 先祖を持たないTopicを取得する
+      listFilter = topic => topic.isFirstTopic();
     }
 
     const topicListItems = topics

@@ -14,7 +14,13 @@ module V1
       topics = Topic.all.map { |topic|
         TopicSerializer.new(topic).serializable_hash
       }
-      { topics: topics }.camelize_keys
+      topic_tree_pathes = TopicTreePath.all.map { |topic_tree_path|
+        TopicTreePathSerializer.new(topic_tree_path).serializable_hash
+      }
+      {
+        topics: topics,
+        topic_tree_pathes: topic_tree_pathes
+       }.camelize_keys
     end
   end
 end

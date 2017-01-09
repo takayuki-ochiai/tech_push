@@ -83,10 +83,11 @@ ActiveRecord::Schema.define(version: 20161230075859) do
   end
 
   create_table "topic_tree_paths", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "ancestor_id",   null: false
-    t.integer  "descendant_id", null: false
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "ancestor_id",                   null: false
+    t.integer  "descendant_id",                 null: false
+    t.boolean  "parental_flg",  default: false, null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.index ["ancestor_id", "descendant_id"], name: "index_topic_tree_paths_on_ancestor_id_and_descendant_id", unique: true, using: :btree
     t.index ["descendant_id"], name: "fk_rails_6649b360cb", using: :btree
   end
@@ -94,10 +95,8 @@ ActiveRecord::Schema.define(version: 20161230075859) do
   create_table "topics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string   "name",       null: false
     t.string   "type",       null: false
-    t.integer  "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["parent_id"], name: "fk_rails_5f3c091f12", using: :btree
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -139,5 +138,4 @@ ActiveRecord::Schema.define(version: 20161230075859) do
   add_foreign_key "notifiers", "users"
   add_foreign_key "topic_tree_paths", "topics", column: "ancestor_id"
   add_foreign_key "topic_tree_paths", "topics", column: "descendant_id"
-  add_foreign_key "topics", "topics", column: "parent_id"
 end

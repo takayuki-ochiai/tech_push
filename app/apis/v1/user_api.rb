@@ -45,7 +45,7 @@ module V1
               interest.topic_id == id
             }
             unless present_interest
-              Interest.create!(user_id: user.id, topic_id: id)
+              Interest.create(user_id: user.id, topic_id: id)
             end
           }
 
@@ -56,7 +56,7 @@ module V1
           user = current_user
           # 送られてきたtopic_idsを持つ興味レコードで存在するものをすべてdeleteする
           topic_ids = params[:topics].map(&:id)
-          interests = Interest.delete_all(user_id: user.id, topic_id: topic_ids)
+          interests = Interest.where(user_id: user.id, topic_id: topic_ids).delete_all
           { result: true }.camelize_keys
         end
       end

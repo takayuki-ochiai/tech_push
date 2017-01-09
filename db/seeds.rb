@@ -53,7 +53,8 @@ end
     ancestor_topic_ids.each do |ancestor_topic_id|
       TopicTreePath.create(
         ancestor_id: ancestor_topic_id,
-        descendant_id: item.id
+        descendant_id: item.id,
+        parental_flg: true
       )
     end
   }
