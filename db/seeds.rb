@@ -5,33 +5,56 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+require 'ostruct'
 
-
-require 'csv'
 Topic.delete_all
 TopicTreePath.delete_all
-i = 1
-CSV.foreach('db/fixtures/topic.csv') do |row|
-  if row[2] == '1'
-    type = 'FirstTopic'
-  elsif row[2] == '2'
-    type = 'SecondTopic'
-  else
-    type = 'ThirdTopic'
-  end
 
-  Topic.create(
-    id: row[0].to_i,
-    name: row[1],
-    type: type,
-    parent_id: row[3]
+rails_root = Dir.pwd
+items = YAML.load_file("#{rails_root}/db/fixtures/topic.yml")
+
+items.map do |item|
+  OpenStruct.new(item)
+end
+.select do |item|
+  item.type == 1
+end
+.each do |item|
+  FirstTopic.create(
+    id: item.id,
+    name: item.name
+  )
+
+  TopicTreePath.create(
+    ancestor_id: item.id,
+    descendant_id: item.id
   )
 end
 
+items.map do |item|
+  OpenStruct.new(item)
+end
+.select do |item|
+  item.type == 2
+end
+.each do |item|
+  topic = SecondTopic.create(
+    id: item.id,
+    name: item.name
+  )
 
-# TreePath作成
-first_topics = FirstTopic.all
-first_topics.each do |topic|
-  # 自分の子供を取得する
-  TopicTreePath.create_tree_path(topic.id, topic)
+  TopicTreePath.create(
+    ancestor_id: item.id,
+    descendant_id: item.id
+  )
+
+  item.parent_ids.each { |parent_id|
+    ancestor_topic_ids = TopicTreePath.where(descendant_id: parent_id).pluck(:ancestor_id)
+    ancestor_topic_ids.each do |ancestor_topic_id|
+      TopicTreePath.create(
+        ancestor_id: ancestor_topic_id,
+        descendant_id: item.id
+      )
+    end
+  }
 end

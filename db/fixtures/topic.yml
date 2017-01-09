@@ -1,0 +1,792 @@
+- id: 1
+  name: UX/Webデザイン
+  type: 1
+  parent_ids:
+- id: 2
+  name: CSS
+  type: 2
+  parent_ids:
+    - 1
+    - 15
+- id: 3
+  name: HTML
+  type: 2
+  parent_ids:
+    - 1
+    - 15
+- id: 4
+  name: Firefox
+  type: 2
+  parent_ids:
+    - 1
+    - 15
+- id: 5
+  name: GoogleChrome
+  type: 2
+  parent_ids:
+    - 1
+    - 15
+- id: 6
+  name: jQuery
+  type: 2
+  parent_ids:
+    - 1
+    - 15
+- id: 7
+  name: WordPress
+  type: 2
+  parent_ids:
+    - 1
+- id: 8
+  name: フォント
+  type: 2
+  parent_ids:
+    - 1
+    - 15
+- id: 9
+  name: IE/Microsoft Edge
+  type: 2
+  parent_ids:
+    - 1
+    - 15
+- id: 10
+  name: Safari
+  type: 2
+  parent_ids:
+    - 1
+    - 15
+- id: 11
+  name: SVG
+  type: 2
+  parent_ids:
+    - 1
+- id: 12
+  name: ビジュアライゼーション
+  type: 2
+  parent_ids:
+    - 1
+- id: 13
+  name: UXデザイン
+  type: 2
+  parent_ids:
+    - 1
+    - 15
+- id: 14
+  name: Material Design
+  type: 2
+  parent_ids:
+    - 1
+    - 15
+    - 35
+- id: 15
+  name: Webフロントエンド
+  type: 1
+  parent_ids:
+- id: 16
+  name: JavaScript
+  type: 2
+  parent_ids:
+    - 15
+    - 81
+- id: 17
+  name: Node.js
+  type: 2
+  parent_ids:
+    - 15
+    - 81
+- id: 18
+  name: SEO
+  type: 2
+  parent_ids:
+    - 15
+- id: 19
+  name: Angular
+  type: 2
+  parent_ids:
+    - 15
+- id: 20
+  name: SVG
+  type: 2
+  parent_ids:
+    - 15
+- id: 21
+  name: WebRTC
+  type: 2
+  parent_ids:
+    - 15
+- id: 22
+  name: ビジュアライゼーション
+  type: 2
+  parent_ids:
+    - 15
+- id: 23
+  name: ハイブリッドアプリ
+  type: 2
+  parent_ids:
+    - 15
+    - 35
+- id: 24
+  name: React.js
+  type: 2
+  parent_ids:
+    - 15
+- id: 25
+  name: WebSocket
+  type: 2
+  parent_ids:
+    - 15
+- id: 26
+  name: Polymer
+  type: 2
+  parent_ids:
+    - 15
+- id: 27
+  name: Electron
+  type: 2
+  parent_ids:
+    - 15
+- id: 28
+  name: HTML5
+  type: 2
+  parent_ids:
+    - 15
+- id: 29
+  name: AltJS
+  type: 2
+  parent_ids:
+    - 15
+- id: 30
+  name: Gulp
+  type: 2
+  parent_ids:
+    - 15
+- id: 31
+  name: Selenium
+  type: 2
+  parent_ids:
+    - 15
+- id: 32
+  name: Grunt
+  type: 2
+  parent_ids:
+    - 15
+- id: 33
+  name: Web Performance
+  type: 2
+  parent_ids:
+    - 15
+- id: 34
+  name: Web Accessibility
+  type: 2
+  parent_ids:
+    - 15
+- id: 35
+  name: モバイルアプリ開発
+  type: 1
+  parent_ids:
+- id: 36
+  name: Android
+  type: 2
+  parent_ids:
+    - 35
+    - 136
+- id: 37
+  name: iOS
+  type: 2
+  parent_ids:
+    - 35
+- id: 38
+  name: iPhone/iPad
+  type: 2
+  parent_ids:
+    - 35
+    - 136
+- id: 39
+  name: Eclipse
+  type: 2
+  parent_ids:
+    - 35
+    - 81
+- id: 40
+  name: ウェアラブル
+  type: 2
+  parent_ids:
+    - 35
+    - 126
+    - 136
+- id: 41
+  name: Xcode
+  type: 2
+  parent_ids:
+    - 35
+- id: 42
+  name: Swift
+  type: 2
+  parent_ids:
+    - 35
+    - 81
+- id: 43
+  name: UXデザイン
+  type: 2
+  parent_ids:
+    - 35
+- id: 44
+  name: Windows Phone
+  type: 2
+  parent_ids:
+    - 35
+    - 136
+- id: 45
+  name: Xamarin
+  type: 2
+  parent_ids:
+    - 35
+    - 81
+- id: 46
+  name: SQLite
+  type: 2
+  parent_ids:
+    - 35
+    - 48
+- id: 47
+  name: 画像処理
+  type: 2
+  parent_ids:
+    - 35
+    - 81
+- id: 48
+  name: クラウド/データベース
+  type: 1
+  parent_ids:
+- id: 49
+  name: Amazon Web Services
+  type: 2
+  parent_ids:
+    - 48
+    - 70
+- id: 50
+  name: Docker
+  type: 2
+  parent_ids:
+    - 48
+    - 70
+    - 123
+- id: 51
+  name: MySQL
+  type: 2
+  parent_ids:
+    - 48
+    - 70
+- id: 52
+  name: SQL
+  type: 2
+  parent_ids:
+    - 48
+    - 81
+- id: 53
+  name: Google Cloud Platform
+  type: 2
+  parent_ids:
+    - 48
+    - 70
+- id: 54
+  name: Oracle
+  type: 2
+  parent_ids:
+    - 48
+- id: 55
+  name: MongoDB
+  type: 2
+  parent_ids:
+    - 48
+- id: 56
+  name: 分散処理
+  type: 2
+  parent_ids:
+    - 48
+- id: 57
+  name: 全文検索
+  type: 2
+  parent_ids:
+    - 48
+- id: 58
+  name: Nginx
+  type: 2
+  parent_ids:
+    - 48
+    - 70
+- id: 59
+  name: Apache HTTP Server
+  type: 2
+  parent_ids:
+    - 48
+    - 70
+- id: 60
+  name: X as a Service
+  type: 2
+  parent_ids:
+    - 48
+    - 70
+- id: 61
+  name: Logging
+  type: 2
+  parent_ids:
+    - 48
+    - 70
+    - 123
+- id: 62
+  name: Heroku
+  type: 2
+  parent_ids:
+    - 48
+    - 70
+- id: 63
+  name: PostgreSQL
+  type: 2
+  parent_ids:
+    - 48
+- id: 64
+  name: Redis
+  type: 2
+  parent_ids:
+    - 48
+- id: 65
+  name: ソフトウェアデザイン
+  type: 2
+  parent_ids:
+    - 48
+- id: 66
+  name: Cassandra
+  type: 2
+  parent_ids:
+    - 48
+- id: 67
+  name: Microsoft Azure
+  type: 2
+  parent_ids:
+    - 48
+    - 70
+- id: 68
+  name: Microsoft SQL Server
+  type: 2
+  parent_ids:
+    - 48
+- id: 69
+  name: Neo4j
+  type: 2
+  parent_ids:
+    - 48
+- id: 70
+  name: インフラ/ネットワーク
+  type: 1
+  parent_ids:
+- id: 71
+  name: Linux
+  type: 2
+  parent_ids:
+    - 70
+- id: 72
+  name: セキュリティ
+  type: 2
+  parent_ids:
+    - 70
+- id: 73
+  name: ネットワーク
+  type: 2
+  parent_ids:
+    - 70
+- id: 74
+  name: ストレージ
+  type: 2
+  parent_ids:
+    - 70
+- id: 75
+  name: HTTP
+  type: 2
+  parent_ids:
+    - 70
+- id: 76
+  name: サーバー監視
+  type: 2
+  parent_ids:
+    - 70
+    - 123
+- id: 77
+  name: シェル
+  type: 2
+  parent_ids:
+    - 70
+    - 123
+- id: 78
+  name: プロビジョニング
+  type: 2
+  parent_ids:
+    - 70
+    - 123
+- id: 79
+  name: Active Directory
+  type: 2
+  parent_ids:
+    - 70
+- id: 80
+  name: SDN
+  type: 2
+  parent_ids:
+    - 70
+- id: 81
+  name: プログラミング
+  type: 1
+  parent_ids:
+- id: 82
+  name: Java
+  type: 2
+  parent_ids:
+    - 81
+- id: 83
+  name: GitHub
+  type: 2
+  parent_ids:
+    - 81
+    - 123
+- id: 84
+  name: Python
+  type: 2
+  parent_ids:
+    - 81
+- id: 85
+  name: C++
+  type: 2
+  parent_ids:
+    - 81
+- id: 86
+  name: PHP
+  type: 2
+  parent_ids:
+    - 81
+- id: 87
+  name: Ruby
+  type: 2
+  parent_ids:
+    - 81
+- id: 88
+  name: Git
+  type: 2
+  parent_ids:
+    - 81
+- id: 89
+  name: C#
+  type: 2
+  parent_ids:
+    - 81
+- id: 90
+  name: Go言語
+  type: 2
+  parent_ids:
+    - 81
+- id: 91
+  name: Ruby on Rails
+  type: 2
+  parent_ids:
+    - 81
+- id: 92
+  name: Xcode
+  type: 2
+  parent_ids:
+    - 81
+- id: 93
+  name: Visual Studio
+  type: 2
+  parent_ids:
+    - 81
+- id: 94
+  name: Perl
+  type: 2
+  parent_ids:
+    - 81
+- id: 95
+  name: C言語
+  type: 2
+  parent_ids:
+    - 81
+- id: 96
+  name: 関数型プログラミング
+  type: 2
+  parent_ids:
+    - 81
+- id: 97
+  name: Haskell
+  type: 2
+  parent_ids:
+    - 81
+- id: 98
+  name: Scala
+  type: 2
+  parent_ids:
+    - 81
+- id: 99
+  name: ソフトウェアテスト
+  type: 2
+  parent_ids:
+    - 81
+    - 123
+- id: 100
+  name: Erlang
+  type: 2
+  parent_ids:
+    - 81
+- id: 101
+  name: Spring Framework
+  type: 2
+  parent_ids:
+    - 81
+- id: 102
+  name: Elixir
+  type: 2
+  parent_ids:
+    - 81
+- id: 103
+  name: リアクティブプログラミング
+  type: 2
+  parent_ids:
+    - 81
+- id: 104
+  name: 3Dプログラミング
+  type: 2
+  parent_ids:
+    - 81
+- id: 105
+  name: Lisp
+  type: 2
+  parent_ids:
+    - 81
+- id: 106
+  name: Groovy
+  type: 2
+  parent_ids:
+    - 81
+- id: 107
+  name: HTML5
+  type: 2
+  parent_ids:
+    - 81
+- id: 108
+  name: ソフトウェアデザイン
+  type: 2
+  parent_ids:
+    - 81
+- id: 109
+  name: オブジェクト指向プログラミング
+  type: 2
+  parent_ids:
+    - 81
+- id: 110
+  name: F#
+  type: 2
+  parent_ids:
+    - 81
+- id: 111
+  name: Lua
+  type: 2
+  parent_ids:
+    - 81
+- id: 112
+  name: AltJS
+  type: 2
+  parent_ids:
+    - 81
+- id: 113
+  name: IntelliJ IDEA
+  type: 2
+  parent_ids:
+    - 81
+- id: 114
+  name: IIS
+  type: 2
+  parent_ids:
+    - 81
+- id: 115
+  name: Subversion
+  type: 2
+  parent_ids:
+    - 81
+- id: 116
+  name: OCaml
+  type: 2
+  parent_ids:
+    - 81
+- id: 117
+  name: Clojure
+  type: 2
+  parent_ids:
+    - 81
+- id: 118
+  name: Gradle
+  type: 2
+  parent_ids:
+    - 81
+- id: 119
+  name: Objective C
+  type: 2
+  parent_ids:
+    - 81
+- id: 120
+  name: Mercurial
+  type: 2
+  parent_ids:
+    - 81
+- id: 121
+  name: R言語
+  type: 2
+  parent_ids:
+    - 81
+    - 131
+- id: 122
+  name: NetBeans
+  type: 2
+  parent_ids:
+    - 81
+- id: 123
+  name: DevOps
+  type: 1
+  parent_ids:
+- id: 124
+  name: 継続的インテグレーション
+  type: 2
+  parent_ids:
+    - 123
+- id: 125
+  name: アクセス解析
+  type: 2
+  parent_ids:
+    - 123
+- id: 126
+  name: IoT/Maker
+  type: 1
+  parent_ids:
+- id: 127
+  name: IoT
+  type: 2
+  parent_ids:
+    - 126
+    - 136
+- id: 128
+  name: Robotics
+  type: 2
+  parent_ids:
+    - 126
+    - 131
+    - 136
+- id: 129
+  name: ドローン
+  type: 2
+  parent_ids:
+    - 126
+    - 136
+- id: 130
+  name: 3Dプリンタ
+  type: 2
+  parent_ids:
+    - 126
+    - 136
+- id: 131
+  name: AI/機械学習
+  type: 1
+  parent_ids:
+- id: 132
+  name: 機械学習
+  type: 2
+  parent_ids:
+    - 131
+- id: 133
+  name: 人工知能
+  type: 2
+  parent_ids:
+    - 131
+- id: 134
+  name: 深層学習
+  type: 2
+  parent_ids:
+    - 131
+- id: 135
+  name: MATLAB
+  type: 2
+  parent_ids:
+    - 131
+- id: 136
+  name: デバイス/ガジェット
+  type: 1
+  parent_ids:
+- id: 137
+  name: Virtual Reality
+  type: 2
+  parent_ids:
+    - 136
+- id: 138
+  name: BlackBerry
+  type: 2
+  parent_ids:
+    - 136
+- id: 139
+  name: Surface
+  type: 2
+  parent_ids:
+    - 136
+- id: 140
+  name: エディタ/その他
+  type: 1
+  parent_ids:
+- id: 141
+  name: Windows
+  type: 2
+  parent_ids:
+    - 140
+- id: 142
+  name: Mac
+  type: 2
+  parent_ids:
+    - 140
+- id: 143
+  name: FGPA
+  type: 2
+  parent_ids:
+    - 140
+- id: 144
+  name: Adobe Flash
+  type: 2
+  parent_ids:
+    - 140
+- id: 145
+  name: XML
+  type: 2
+  parent_ids:
+    - 140
+- id: 146
+  name: Excel
+  type: 2
+  parent_ids:
+    - 140
+- id: 147
+  name: Emacs
+  type: 2
+  parent_ids:
+    - 140
+- id: 148
+  name: Vim
+  type: 2
+  parent_ids:
+    - 140
+- id: 149
+  name: Meteor
+  type: 2
+  parent_ids:
+    - 140
+- id: 150
+  name: Google Spreadsheet
+  type: 2
+  parent_ids:
+    - 140
+- id: 151
+  name: Microsoft Access
+  type: 2
+  parent_ids:
+    - 140

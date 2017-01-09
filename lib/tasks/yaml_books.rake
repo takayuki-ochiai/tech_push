@@ -1,4 +1,3 @@
-require 'yaml'
 rails_root = Dir.pwd
 namespace :yaml_books do
   task :import => :environment do
