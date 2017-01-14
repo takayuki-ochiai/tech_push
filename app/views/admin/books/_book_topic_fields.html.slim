@@ -1,0 +1,4 @@
+.book_topic_form
+  = f.hidden_field :book_id, value: book.id
+  = f.collection_select(:topic_id, select_topics, :id, :name)
+  = link_to_remove_association 'Remove Topic', f, { wrapper_class: 'book_topic_form' }

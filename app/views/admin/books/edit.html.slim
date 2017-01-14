@@ -1,3 +1,12 @@
-| edit page
+| コーシンページ
 .book
   | #{@book.title}
+
+  = form_for([:admin, @book])do |f|
+    .topics
+      = f.fields_for :book_topics do |book_topic|
+        = render partial: 'book_topic_fields', locals: { f: book_topic, book: @book, select_topics: @select_topic_collections }
+      = link_to_add_association "Add task", f, :book_topics, render_options: { locals: { book: @book, select_topics: @select_topic_collections } }
+
+    = f.submit "更新する"
+  = link_to "この本を削除する", [:admin, @book], method: :delete, data: { confirm: "本当に削除していいですか?" }

@@ -41,6 +41,9 @@ gem 'dotenv-rails'
 # 楽天接続用
 gem 'rakuten_web_service'
 
+# 多対多フォーム
+gem 'cocoon'
+
 group :development do
   gem 'capistrano'
   gem 'capistrano-rails'
@@ -91,6 +94,8 @@ group :development, :test do
   gem 'pry'
   gem 'pry-doc'
   gem 'pry-rails'
+
+  gem 'pry-remote'
   # -----------------------------------------
 end
 

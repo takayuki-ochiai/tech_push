@@ -1,5 +1,5 @@
 class Book < ApplicationRecord
-  has_many :book_topics
+  has_many :book_topics, dependent: :delete_all
   has_many :topic, through: :book_topics
   has_many :notifiers
   has_many :users, through: :notifiers
@@ -10,6 +10,8 @@ class Book < ApplicationRecord
   validates :sales_date, presence: true
   validates :isbn, presence: true, uniqueness: true
   validates :display_flg, inclusion: {in: [true, false]}
+
+  accepts_nested_attributes_for :book_topics, allow_destroy: true
 
   def save_with_isbn
     book = Book.find_by(isbn: self.isbn)
