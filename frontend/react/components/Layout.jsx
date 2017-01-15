@@ -54,6 +54,16 @@ class Layout extends Component {
     });
   }
 
+  renderTitle() {
+    const pathname = this.props.location.pathname;
+    switch (true) {
+      case /\/topics\/edit/.test(pathname):
+        return 'トピック選択';
+      default:
+        return 'Tech Push';
+    }
+  }
+
   renderLeftIcon() {
     const pathname = this.props.location.pathname;
     switch (true) {
@@ -85,7 +95,7 @@ class Layout extends Component {
     return (
       <div>
         <AppBar
-          title="Tech Push"
+          title={this.renderTitle()}
           iconElementLeft={this.renderLeftIcon()}
         />
         <Drawer
@@ -93,6 +103,15 @@ class Layout extends Component {
           docked={false}
           onRequestChange={this.onRequestChangeSideMenu}
         >
+          <MenuItem
+            onTouchTap={event => {
+              event.preventDefault();
+              this.closeSideMenu();
+              router.push('/');
+            }}
+          >
+            新刊書籍
+          </MenuItem>
           <MenuItem
             onTouchTap={event => {
               event.preventDefault();
