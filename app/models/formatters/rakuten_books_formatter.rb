@@ -9,6 +9,7 @@ module RakutenBooksFormatter
         publisher_name: item.publisher_name,
         author: item.author,
         author_kana: item.author_kana,
+        item_url: item.item_url,
         small_image_url: item.small_image_url,
         medium_image_url: item.medium_image_url,
         large_image_url: item.large_image_url,

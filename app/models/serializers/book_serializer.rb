@@ -5,10 +5,9 @@ class BookSerializer < ActiveModel::Serializer
     :author,
     :isbn,
     :price,
-    :display_flg,
     :sales_date,
+    :item_url,
     :small_image_url,
     :medium_image_url,
     :large_image_url
-
 end

@@ -9,6 +9,7 @@ class Book < ApplicationRecord
   validates :price, presence: true
   validates :sales_date, presence: true
   validates :isbn, presence: true, uniqueness: true
+  validates :item_url, presence: true
   validates :display_flg, inclusion: {in: [true, false]}
 
   accepts_nested_attributes_for :book_topics, allow_destroy: true

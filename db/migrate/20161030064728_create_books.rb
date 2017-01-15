@@ -6,9 +6,10 @@ class CreateBooks < ActiveRecord::Migration[5.0]
       t.string :publisher_name, null: false
       t.string :author, null: false
       t.string :author_kana
-      t.string :small_image_url
-      t.string :medium_image_url
-      t.string :large_image_url
+      t.text :item_url, null: false
+      t.text :small_image_url
+      t.text :medium_image_url
+      t.text :large_image_url
       t.string :isbn, null: false
       t.integer :price, null: false
       t.boolean :display_flg, default: false, null: false

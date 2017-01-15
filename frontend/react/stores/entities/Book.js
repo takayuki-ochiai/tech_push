@@ -7,7 +7,7 @@ const BookBase = new Record({
   author: null,
   isbn: null,
   price: null,
-  displayFlg: false,
+  itemUrl: null,
   salesDate: null,
   smallImageUrl: null,
   mediumImageUrl: null,

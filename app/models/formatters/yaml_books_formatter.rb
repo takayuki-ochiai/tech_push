@@ -11,6 +11,7 @@ module YamlBooksFormatter
       sales_date: sales_date,
       title_kana: item.title_kana,
       author_kana: item.author_kana,
+      item_url: item.item_url,
       small_image_url: item.small_image_url,
       medium_image_url: item.medium_image_url,
       large_image_url: item.large_image_url
@@ -20,7 +21,7 @@ module YamlBooksFormatter
 
   def self.format_items(file)
     items = YAML.load_file(file)
-    books = items.map do |item|
+    items.map do |item|
       item = OpenStruct.new(item)
       self.format(item)
     end.compact
