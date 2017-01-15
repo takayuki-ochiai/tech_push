@@ -6,7 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { IndexRoute, Router, Route, hashHistory } from 'react-router';
 import Layout from '../components/Layout';
 
-import Root from './pages/RootContainer';
+import Books from './pages/BooksContainer';
 import TopicSettings from './pages/TopicSettingsContainer';
 
 class App extends Component {
@@ -15,7 +15,7 @@ class App extends Component {
       <MuiThemeProvider>
         <Router history={hashHistory}>
           <Route path="/" component={Layout}>
-            <IndexRoute component={Root} />
+            <IndexRoute component={Books} />
             <Route path="/topics/edit" component={TopicSettings} />
             <Route path="/topics/edit/:parentId" component={TopicSettings} />
           </Route>

@@ -45,11 +45,12 @@ module V1
       # Renders a 401 error
       def authenticate_error
         # User's token is either invalid or not in the right format
-        error!({ message: "認証エラーです！", status: 400 }, 400)
+        error!({ message: "認証エラーです！", status: 401 }, 401)
       end
     end
     mount V1::Login
     mount V1::TopicAPI
     mount V1::UserAPI
+    mount V1::BookAPI
   end
 end
