@@ -1,6 +1,6 @@
 class Book < ApplicationRecord
   has_many :book_topics, dependent: :delete_all
-  has_many :topic, through: :book_topics
+  has_many :topics, through: :book_topics
   has_many :notifiers
   has_many :users, through: :notifiers
 

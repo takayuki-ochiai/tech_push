@@ -2,7 +2,7 @@ module RakutenBooksFormatter
   def self.format(item)
     sales_date = Date.strptime(item.sales_date, "%Y年%m月%d日") rescue nil
 
-    if sale_date.present?
+    if sales_date.present?
       book = Book.new(
         title: item.title,
         title_kana: item.title_kana,
