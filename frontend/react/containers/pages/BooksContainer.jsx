@@ -1,6 +1,7 @@
 import React from 'react';
 import MicroContainer from 'react-micro-container';
 import { List } from 'immutable';
+import CircularProgress from 'material-ui/CircularProgress';
 import Books from '../../components/pages/Books';
 import BooksStore from '../../stores/Books';
 import Book from '../../stores/entities/Book';
@@ -25,7 +26,10 @@ export default class BooksContainer extends MicroContainer {
 
   async setInitialData() {
     const initialData = await this.fetchBooks();
-    const newStore = new BooksStore(initialData);
+    const newStore = this.state.store.withMutations(state => (
+      state.set('books', initialData.books)
+        .set('isLoading', false)
+    ));
     this.setState({
       store: newStore
     });
@@ -36,6 +40,18 @@ export default class BooksContainer extends MicroContainer {
   }
 
   render() {
+    if (this.state.store.isLoading) {
+      return (
+        <div
+          style={{
+            marginTop: 24,
+            textAlign: 'center'
+          }}
+        >
+          <CircularProgress />
+        </div>
+      );
+    }
     return <Books dispatch={this.dispatch} {...this.state} />;
   }
 }

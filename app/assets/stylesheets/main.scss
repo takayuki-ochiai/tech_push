@@ -1,30 +1,79 @@
 // Place all the styles related to the main controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+/* react-router-transitionはラッパーにはrelative, 中身にはabsoluteのスタイルをつけておかないと、
+ 遷移時のアニメーションがおかしなことになるためそれの対応 */
 .wrapper {
-  position: relative;
+	position: relative;
+	width: 100%;
+	height: 714px;
 }
 
+/*@media only screen and (orientation:portrait){
+	.wrapper {
+		height: 994px;
+	}
+}*/
+
 .content {
-  position: absolute;
+	position: absolute;
   width: 100%;
+  height: 100%;
   background-color: white;
 }
 
+.content > div {
+	width: 100%;
+	height: 100%;
+}
+
+
+/* test */
 .slideRight-enter {
-  transform: translateX(100%);
-  transition: transform 0.4s ease-in;
+  z-index: 1;
+  transform: translate(100%);
 }
 
 .slideRight-enter.slideRight-enter-active {
-  transform: translateX(0%);
+  transform: translate(0%);
+  transition: transform 300ms ease;
 }
 
 .slideRight-leave {
-  transform: translateX(0%);
-  transition: transform 0.4s ease-in;
+  z-index: 0;
+  transform: translate(0%);
 }
 
 .slideRight-leave.slideRight-leave-active {
-  transform: translateX(-20%);
+  transform: translate(-25%);
+  transition: transform 300ms ease;
+}
+
+
+.slideLeft-enter {
+  z-index: 0;
+  transform: translate(-25%);
+}
+
+.slideLeft-enter.slideLeft-enter-active {
+  transform: translate(0%);
+  transition: transform 300ms ease;
+}
+
+.slideLeft-leave {
+  z-index: 1;
+  transform: translate(0%);
+}
+
+.slideLeft-leave.slideLeft-leave-active {
+  transform: translate(100%);
+  transition: transform 300ms ease;
+}
+
+.noAnimation-enter {
+  z-index: 1;
+}
+
+.noAnimation-leave {
+  z-index: 0;
 }

@@ -2,9 +2,10 @@ import React from 'react';
 import MicroContainer from 'react-micro-container';
 import { List } from 'immutable';
 import { withRouter } from 'react-router';
+import CircularProgress from 'material-ui/CircularProgress';
 
 import TopicSettings from '../../components/pages/TopicSettings';
-import TopicSettingStore from '../../stores/topicSettings';
+import TopicSettingStore from '../../stores/TopicSettings';
 
 import { apiResource } from '../../main';
 import Topic from '../../stores/entities/Topic';
@@ -60,9 +61,11 @@ class TopicSettingsContainer extends MicroContainer {
       .map(treePath => new TopicTreePath(treePath));
     topicTreePathes = new List(topicTreePathes);
 
-    const newStore = this.store.withMutations(
-      state => state.set('topics', topics).set('topicTreePathes', topicTreePathes)
-    );
+    const newStore = this.store.withMutations(state => (
+      state.set('topics', topics)
+        .set('topicTreePathes', topicTreePathes)
+        .set('isLoading', false)
+    ));
     this.setState({
       store: newStore
     });
@@ -269,6 +272,18 @@ class TopicSettingsContainer extends MicroContainer {
   }
 
   render() {
+    if (this.state.store.isLoading) {
+      return (
+        <div
+          style={{
+            marginTop: 24,
+            textAlign: 'center'
+          }}
+        >
+          <CircularProgress />
+        </div>
+      );
+    }
     const parentId = parseInt(this.props.params.parentId, 10);
     return (
       <TopicSettings
