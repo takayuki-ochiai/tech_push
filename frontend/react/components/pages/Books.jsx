@@ -12,6 +12,9 @@ class Books extends Component {
       <a
         href={book.itemUrl}
         key={book.id}
+        style={{
+          textDecoration: 'none'
+        }}
         rel="noopener noreferrer"
         target="_blank"
       >
