@@ -85,7 +85,7 @@ module.exports = {
   devServer: {
     headers: {
       // 'Access-Control-Allow-Origin': ['http://localhost:3000', 'http://local.examples.com/:3000'],
-      'Access-Control-Allow-Origin': 'https://local.examples.com:9292',
+      'Access-Control-Allow-Origin': 'https://local.examples.com.dev:9292',
       'Access-Control-Allow-Credentials': 'true'
     }
   }
