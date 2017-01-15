@@ -4,6 +4,9 @@
 
   = form_for([:admin, @book])do |f|
     .topics
+      .display_flg
+        = f.check_box :display_flg
+        = f.label :display_flg, "表示する"
       = f.fields_for :book_topics do |book_topic|
         = render partial: 'book_topic_fields', locals: { f: book_topic, book: @book, select_topics: @select_topic_collections }
       = link_to_add_association "Add task", f, :book_topics, render_options: { locals: { book: @book, select_topics: @select_topic_collections } }

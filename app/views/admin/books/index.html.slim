@@ -1,2 +1,17 @@
 - @books.each do |book|
-  .book = link_to book.title, edit_admin_book_path(book)
+  .book
+    = link_to book.title, edit_admin_book_path(book)
+    .sales_date
+      = "　発売日：#{book.sales_date}"
+    div
+      - if book.display_flg
+        | 　表示中　
+      - else
+        | 　非表示　
+
+    - unless book.topics.empty?
+      .topics
+        | 　表示トピック　　
+        - book.topics.each do |topic|
+          div
+            = "　　#{topic.name}"
