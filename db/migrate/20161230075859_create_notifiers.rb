@@ -1,6 +1,6 @@
 class CreateNotifiers < ActiveRecord::Migration[5.0]
   def change
-    create_table :notifiers do |t|
+    create_table :notices do |t|
       t.references :book, foreign_key: true
       t.references :user, foreign_key: true
       t.references :device, foreign_key: true
@@ -9,8 +9,6 @@ class CreateNotifiers < ActiveRecord::Migration[5.0]
       t.string :one_signal_player_id, null: false
       t.string :device_model, null: false
       t.string :device_os, null: false
-      # デバイスタイプ
-      t.string :type, null: false
       # 送信した内容のタイトル
       t.string :headings, null: false
       # 送信した内容のコンテンツ
@@ -21,6 +19,6 @@ class CreateNotifiers < ActiveRecord::Migration[5.0]
       t.timestamps
     end
 
-    add_index :notifiers, [:book_id, :user_id], unique: true
+    add_index :notices, [:book_id, :user_id], unique: true
   end
 end

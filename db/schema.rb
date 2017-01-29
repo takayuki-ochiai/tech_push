@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(version: 20161230075859) do
     t.index ["user_id"], name: "index_interests_on_user_id", using: :btree
   end
 
-  create_table "notifiers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+  create_table "notices", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "book_id"
     t.integer  "user_id"
     t.integer  "device_id"
@@ -70,17 +70,16 @@ ActiveRecord::Schema.define(version: 20161230075859) do
     t.string   "one_signal_player_id",                 null: false
     t.string   "device_model",                         null: false
     t.string   "device_os",                            null: false
-    t.string   "type",                                 null: false
     t.string   "headings",                             null: false
     t.string   "contents",                             null: false
     t.datetime "notify_schedule"
     t.datetime "notify_datetime"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
-    t.index ["book_id", "user_id"], name: "index_notifiers_on_book_id_and_user_id", unique: true, using: :btree
-    t.index ["book_id"], name: "index_notifiers_on_book_id", using: :btree
-    t.index ["device_id"], name: "index_notifiers_on_device_id", using: :btree
-    t.index ["user_id"], name: "index_notifiers_on_user_id", using: :btree
+    t.index ["book_id", "user_id"], name: "index_notices_on_book_id_and_user_id", unique: true, using: :btree
+    t.index ["book_id"], name: "index_notices_on_book_id", using: :btree
+    t.index ["device_id"], name: "index_notices_on_device_id", using: :btree
+    t.index ["user_id"], name: "index_notices_on_user_id", using: :btree
   end
 
   create_table "topic_tree_paths", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -134,9 +133,9 @@ ActiveRecord::Schema.define(version: 20161230075859) do
   add_foreign_key "devices", "users"
   add_foreign_key "interests", "topics"
   add_foreign_key "interests", "users"
-  add_foreign_key "notifiers", "books"
-  add_foreign_key "notifiers", "devices"
-  add_foreign_key "notifiers", "users"
+  add_foreign_key "notices", "books"
+  add_foreign_key "notices", "devices"
+  add_foreign_key "notices", "users"
   add_foreign_key "topic_tree_paths", "topics", column: "ancestor_id"
   add_foreign_key "topic_tree_paths", "topics", column: "descendant_id"
 end
