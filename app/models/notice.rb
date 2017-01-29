@@ -1,4 +1,4 @@
-class Notifier < ApplicationRecord
+class Notice < ApplicationRecord
   belongs_to :book
   belongs_to :user
   belongs_to :device

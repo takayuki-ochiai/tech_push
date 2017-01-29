@@ -1,3 +1,4 @@
 class Device < ApplicationRecord
-  has_many :notifiers
+  has_many :notices
+  belongs_to :user
 end

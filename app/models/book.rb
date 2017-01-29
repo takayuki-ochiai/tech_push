@@ -1,8 +1,8 @@
 class Book < ApplicationRecord
   has_many :book_topics, dependent: :delete_all
   has_many :topics, through: :book_topics
-  has_many :notifiers
-  has_many :users, through: :notifiers
+  has_many :notices
+  has_many :users, through: :notices
 
   validates :title, presence: true
   validates :publisher_name, presence: true

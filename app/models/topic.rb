@@ -1,6 +1,6 @@
 class Topic < ApplicationRecord
   has_many :book_topics
-  has_many :topics, through: :book_topics
+  has_many :books, through: :book_topics
   has_many :interests
   has_many :users, through: :interests
 

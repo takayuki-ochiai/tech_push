@@ -2,9 +2,6 @@ class User < ApplicationRecord
   has_many :interests
   has_many :topics, through: :interests
 
-  has_many :notifiers
-  has_many :books, through: :notifiers
-
   has_many :devices
 
   validates :admin_flg, inclusion: {in: [true, false]}
