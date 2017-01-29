@@ -5,8 +5,8 @@ import { AppContainer } from 'react-hot-loader';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import App from './containers/App';
-import ApiResource from './utils/ApiResource';
-import UAParser from './utils/UAParser';
+import ApiResource from './models/ApiResource';
+import UAParser from './models/UAParser';
 // immutable.jsとreact-router-reduxを併用する場合はselectLocationStateオプションに下記をセットする必要がある
 // redux-immutableを使っていないのでstate.get('routing')ではない
 // const muiTheme = getMuiTheme();
