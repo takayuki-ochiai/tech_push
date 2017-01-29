@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module V1
+  # APIのルートクラス
   class Root < Grape::API
     # http://localhost:3000/api/v1/
     prefix :api
@@ -13,7 +16,7 @@ module V1
 
     rescue_from :all do |e|
       Root.logger.error(e.message.to_s << "\n" << e.backtrace.join("\n"))
-      error!({ message: "Server Error"}, 500)
+      error!({ message: 'Server Error' }, 500)
     end
 
     helpers do
@@ -23,7 +26,7 @@ module V1
       end
 
       def access_token
-        request.headers["Access-Token"]
+        request.headers['Access-Token']
       end
 
       def warden
@@ -31,7 +34,9 @@ module V1
       end
 
       def authenticated?
-        if access_token && @user = User.find_by_authentication_token(access_token)
+        user = User.find_by_authentication_token(access_token)
+        if access_token && user
+          @user = user
           return true
         end
         warden.authenticated?
@@ -45,7 +50,7 @@ module V1
       # Renders a 401 error
       def authenticate_error
         # User's token is either invalid or not in the right format
-        error!({ message: "認証エラーです！", status: 401 }, 401)
+        error!({ message: '認証エラーです！', status: 401 }, 401)
       end
     end
     mount V1::Login

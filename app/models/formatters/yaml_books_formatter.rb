@@ -1,7 +1,7 @@
 require 'ostruct'
 module YamlBooksFormatter
   def self.format(item)
-    sales_date = Date.strptime(item.sales_date, "%Y/%m/%d") rescue nil
+    sales_date = Date.strptime(item.sales_date, '%Y/%m/%d') rescue nil
     book = Book.new(
       isbn: item.isbn,
       title: item.title,
@@ -23,7 +23,7 @@ module YamlBooksFormatter
     items = YAML.load_file(file)
     items.map do |item|
       item = OpenStruct.new(item)
-      self.format(item)
+      format(item)
     end.compact
   end
 end

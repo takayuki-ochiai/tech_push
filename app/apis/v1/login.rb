@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 using HashSerializeKeys
 module V1
+  # ログイン関連のAPI用クラス
   class Login < Grape::API
     rescue_from StandardError do |e|
       Rails.logger.info(e.message)
@@ -12,10 +15,8 @@ module V1
       get '/' do
         authenticate_user
         user = current_user
-        unless user.access_token
-          user.update_access_token!
-        end
-        {access_token: user.access_token}.camelize_keys
+        user.update_access_token! unless user.access_token
+        { access_token: user.access_token }.camelize_keys
       end
     end
 
@@ -25,7 +26,7 @@ module V1
         authenticate_user
         user = current_user
         user.update_access_token!
-        {access_token: user.access_token}.camelize_keys
+        { access_token: user.access_token }.camelize_keys
       end
     end
   end

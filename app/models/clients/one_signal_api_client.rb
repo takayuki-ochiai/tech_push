@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# OneSignalに通信するためのApiクライアントクラス
 module OneSignalApiClient
   # OneSignalApiClient.notifi_messages(
   #   {en: "notification test", ja: "通知テストですよ"},
@@ -5,7 +8,7 @@ module OneSignalApiClient
   #   [user_id]
   # )
 
-  URI = 'https://onesignal.com/api/v1'.freeze
+  URI = 'https://onesignal.com/api/v1'
   APP_ID = ENV['ONESIGNAL_APP_ID']
   REST_API_KEY = ENV['ONESIGNAL_REST_API_KEY']
   CONN = Faraday::Connection.new(url: URI) do |builder|

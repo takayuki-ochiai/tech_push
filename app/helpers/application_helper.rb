@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def webpack_asset_path(path)
     if Rails.env.development?
-      return "#{ENV["DEVELOP_WEBPACK_ASSETS_URL"]}#{path}"
+      return "#{ENV['DEVELOP_WEBPACK_ASSETS_URL']}#{path}"
     end
 
     # sprocketsでdigestをつけさせるので、そのままのpathを返す

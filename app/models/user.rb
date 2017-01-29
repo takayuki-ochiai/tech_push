@@ -4,7 +4,7 @@ class User < ApplicationRecord
 
   has_many :devices
 
-  validates :admin_flg, inclusion: {in: [true, false]}
+  validates :admin_flg, inclusion: { in: [true, false] }
 
   # validates :name, presence: true
   # validates :email, presence: true
@@ -19,22 +19,18 @@ class User < ApplicationRecord
   after_create :update_access_token!
 
   def update_access_token!
-    self.access_token = "#{self.id}:#{Devise.friendly_token}"
-    self.save!
+    self.access_token = "#{id}:#{Devise.friendly_token}"
+    save!
   end
 
   def self.find_by_authentication_token(access_token)
-    unless access_token.include?(':')
-      return
-    end
+    return unless access_token.include?(':')
     user_id = access_token.split(':').first
     user = User.where(id: user_id).first
-    if user && Devise.secure_compare(user.access_token, access_token)
-      user
-    end
+    user if user && Devise.secure_compare(user.access_token, access_token)
   end
 
   def admin?
-    self.admin_flg
+    admin_flg
   end
 end

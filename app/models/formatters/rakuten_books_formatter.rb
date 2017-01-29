@@ -1,6 +1,6 @@
 module RakutenBooksFormatter
   def self.format(item)
-    sales_date = Date.strptime(item.sales_date, "%Y年%m月%d日") rescue nil
+    sales_date = Date.strptime(item.sales_date, '%Y年%m月%d日') rescue nil
 
     if sales_date.present?
       book = Book.new(
@@ -22,8 +22,8 @@ module RakutenBooksFormatter
   end
 
   def self.format_items(items)
-    books = items.map do |item|
-      self.format(item)
+    items.map do |item|
+      format(item)
     end.compact
   end
 end

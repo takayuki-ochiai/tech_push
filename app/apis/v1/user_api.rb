@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 using HashSerializeKeys
 module V1
+  # ログイン中のユーザーに関わる除法を取得するためのAPI
   class UserAPI < Grape::API
     rescue_from StandardError do |e|
       Rails.logger.info(e.message)
@@ -11,11 +14,11 @@ module V1
     end
 
     resource :user do
-      desc "ログイン中のユーザーのトピック情報を取得します"
+      desc 'ログイン中のユーザーのトピック情報を取得します'
       get '/interests' do
-        interests = Interest.where(user_id: current_user.id).map { |interest|
+        interests = Interest.where(user_id: current_user.id).map do |interest|
           InterestSerializer.new(interest).serializable_hash
-        }
+        end
         { interests: interests }.camelize_keys
       end
 
@@ -35,19 +38,19 @@ module V1
       end
 
       resource :interests do
-        desc "ログイン中のユーザーのフォロー情報を更新します"
+        desc 'ログイン中のユーザーのフォロー情報を更新します'
         post '/follow' do
           user = current_user
           topic_ids = params[:topics].map(&:id)
           interests = Interest.where(user_id: user.id, topic_id: topic_ids)
-          topic_ids.each { |id|
-            present_interest = interests.any? { |interest|
+          topic_ids.each do |id|
+            present_interest = interests.any? do |interest|
               interest.topic_id == id
-            }
+            end
             unless present_interest
               Interest.create(user_id: user.id, topic_id: id)
             end
-          }
+          end
 
           { result: true }.camelize_keys
         end
@@ -56,7 +59,7 @@ module V1
           user = current_user
           # 送られてきたtopic_idsを持つ興味レコードで存在するものをすべてdeleteする
           topic_ids = params[:topics].map(&:id)
-          interests = Interest.where(user_id: user.id, topic_id: topic_ids).delete_all
+          Interest.where(user_id: user.id, topic_id: topic_ids).delete_all
           { result: true }.camelize_keys
         end
       end

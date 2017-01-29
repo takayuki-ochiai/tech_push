@@ -1,11 +1,15 @@
+# frozen_string_literal: true
+
 module RakutenBooksImportBatch
+  private_class_method :create_params
+
   def self.execute(
     params = nil,
     limit_date = Date.today
   )
     params = create_params(params)
 
-    while true
+    loop do
       book_items = RakutenBooksApiClient.search(params)
       books = RakutenBooksFormatter.format_items(book_items)
       import_books = books.select { |book| book.sales_date >= limit_date }
@@ -15,7 +19,6 @@ module RakutenBooksImportBatch
     end
   end
 
-  private
   def self.create_params(params)
     default_params = {
       sort: '-releaseDate',

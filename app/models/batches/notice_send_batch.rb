@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module NoticeSendBatch
   BEFORE_PUBLISH = 3
   NOTIFY_HOUR = 11

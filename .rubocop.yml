@@ -1,2 +1,14 @@
 AllCops:
   TargetRubyVersion: 2.3
+MethodLength:
+  Enabled: false
+RescueModifier:
+  Enabled: false
+AbcSize:
+  Enabled: false
+AsciiComments:
+  Enabled: false
+Documentation:
+  Enabled: false
+LineLength:
+  Max: 140

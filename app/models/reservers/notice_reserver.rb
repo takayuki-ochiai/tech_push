@@ -9,7 +9,7 @@ module NoticeReserver
 
     books = Book.where(
       id: book_ids,
-      sales_date: Date.today.days_since(BEFORE_PUBLISH),
+      sales_date: Date.today.days_since(reserve_since),
       display_flg: true
     )
 
@@ -23,7 +23,7 @@ module NoticeReserver
           one_signal_player_id: device.one_signal_player_id,
           device_model: device.device_model,
           device_os: device.device_os,
-          contents: "#{book.title}は#{BEFORE_PUBLISH}日後に発売です",
+          contents: "#{book.title}は#{reserve_since}日後に発売です",
           headings: 'Tech Push',
           notify_schedule: Date.today + NOTIFY_HOUR.hours
         )

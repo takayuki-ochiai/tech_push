@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 using HashSerializeKeys
 module V1
+  # トピック情報取得API用のクラス
   class TopicAPI < Grape::API
     rescue_from StandardError do |e|
       Rails.logger.info(e.message)
@@ -11,16 +14,16 @@ module V1
     end
 
     get '/topics' do
-      topics = Topic.all.map { |topic|
+      topics = Topic.all.map do |topic|
         TopicSerializer.new(topic).serializable_hash
-      }
-      topic_tree_pathes = TopicTreePath.all.map { |topic_tree_path|
+      end
+      topic_tree_pathes = TopicTreePath.all.map do |topic_tree_path|
         TopicTreePathSerializer.new(topic_tree_path).serializable_hash
-      }
+      end
       {
         topics: topics,
         topic_tree_pathes: topic_tree_pathes
-       }.camelize_keys
+      }.camelize_keys
     end
   end
 end
