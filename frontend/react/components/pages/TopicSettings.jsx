@@ -16,8 +16,9 @@ class TopicSettings extends Component {
   hasChildTopic(targetTopic) {
     const store = this.props.store;
     const topicTreePathes = store.topicTreePathes;
-    return topicTreePathes.some(treePath => treePath.ancestorId === targetTopic.id);
-    // return topics.some(topic => targetTopic.id === topic.parentId);
+    return topicTreePathes.some(treePath => (
+      treePath.ancestorId !== treePath.descendantId && treePath.ancestorId === targetTopic.id
+    ));
   }
 
   renderRightIcon(targetTopic) {
