@@ -14,13 +14,12 @@ module NoticeReserver
     )
 
     books.each do |book|
-      devices = user.deivices
+      devices = user.devices
       devices.each do |device|
         Notice.create(
           book_id: book.id,
           user_id: user.id,
           device_id: device.id,
-          notified: false,
           one_signal_player_id: device.one_signal_player_id,
           device_model: device.device_model,
           device_os: device.device_os,
