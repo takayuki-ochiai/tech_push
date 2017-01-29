@@ -34,9 +34,8 @@ module V1
       end
 
       def authenticated?
-        user = User.find_by_authentication_token(access_token)
-        if access_token && user
-          @user = user
+        if access_token && User.find_by_authentication_token(access_token)
+          @user = User.find_by_authentication_token(access_token)
           return true
         end
         warden.authenticated?
