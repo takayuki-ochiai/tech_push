@@ -120,6 +120,18 @@ class Layout extends Component {
               event.preventDefault();
               this.closeSideMenu();
               router.push({
+                pathname: '/notices',
+                // query: { transition: SLIDE_LEFT }
+              });
+            }}
+          >
+            通知一覧
+          </MenuItem>
+          <MenuItem
+            onTouchTap={event => {
+              event.preventDefault();
+              this.closeSideMenu();
+              router.push({
                 pathname: '/topics/edit',
                 // query: { transition: SLIDE_LEFT }
               });

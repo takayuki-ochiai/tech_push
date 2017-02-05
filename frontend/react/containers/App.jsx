@@ -8,6 +8,7 @@ import Layout from '../components/Layout';
 
 import Books from './pages/BooksContainer';
 import TopicSettings from './pages/TopicSettingsContainer';
+import Notices from './pages/NoticesContainer';
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
             <IndexRoute component={Books} />
             <Route path="/topics/edit" component={TopicSettings} />
             <Route path="/topics/edit/:parentId" component={TopicSettings} />
+            <Route path="/notices" component={Notices} />
           </Route>
         </Router>
       </MuiThemeProvider>

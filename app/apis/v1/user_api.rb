@@ -22,6 +22,18 @@ module V1
         { interests: interests }.camelize_keys
       end
 
+      desc 'ログイン中のユーザーの通知履歴を取得します'
+      get '/notices' do
+        notices = Notice.where(user_id: current_user.id)
+                        .group(:book_id)
+                        .includes(:book)
+        notices = notices.map do |notice|
+          NoticeSerializer.new(notice).serializable_hash
+        end
+        { notices: notices }.camelize_keys
+      end
+
+      desc 'ログイン中ユーザーのユーザー情報を取得します'
       get '/' do
         { user: UserSerializer.new(User.first).serializable_hash }.camelize_keys
       end
