@@ -12,15 +12,13 @@ export default class Books extends BooksBase {
     const booksResponse = await apiResource.get('/api/v1/books');
     const books = new List(booksResponse.books.map(book => new Book(book)));
     // TODO 500エラーハンドリング
-    return {
-      books
-    };
+    return books;
   }
 
   static async newInstance() {
-    const initialData = await this.fetchBooks();
+    const books = await this.fetchBooks();
     const newStore = new this({
-      books: initialData.books,
+      books,
       isLoading: false
     });
     return newStore;
