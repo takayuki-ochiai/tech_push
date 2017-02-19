@@ -6,17 +6,39 @@ class ApiResource {
     this.accessToken = accessToken;
   }
 
-  static initialize() {
+  static initialize(uid) {
     const newInstance = new Promise(
       resolve => {
         request
           .get('/api/v1/access_token')
+          .set('User-Id', uid)
           .end((err, res) => resolve(new this(res.body.accessToken)));
       }
     );
     return newInstance;
   }
 
+  authenticate(uid) {
+    const promise = new Promise(
+      resolve => {
+        request
+          .get('/api/v1/access_token')
+          .set('User-Id', uid)
+          .end((err, res) => {
+            this.accessToken = res.body.accessToken;
+            resolve(this);
+          });
+      }
+    );
+    return promise;
+  }
+
+  get authorized() {
+    if (this.accessToken) {
+      return true;
+    }
+    return false;
+  }
 
   get(url, query = {}) {
     const result = new Promise(

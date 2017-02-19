@@ -31,6 +31,7 @@
     "it": true,
     "describe": true,
     "OneSignal": true,
+    "FB": true
   },
   "parserOptions": {
     "sourceType": "module"

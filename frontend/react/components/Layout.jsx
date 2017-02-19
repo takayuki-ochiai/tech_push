@@ -89,6 +89,10 @@ class Layout extends Component {
   render() {
     const router = this.props.router;
     const transition = this.props.location.query.transition || NO_ANIMATION;
+    if (!this.props.apiResource.authorized) {
+      this.props.router.push('/login');
+    }
+
     const transitionEnterTimeout = transition === NO_ANIMATION ? 1 : 300;
     const transitionLeaveTimeout = transition === NO_ANIMATION ? 1 : 300;
     const childElement = <div className="content">{this.props.children}</div>;

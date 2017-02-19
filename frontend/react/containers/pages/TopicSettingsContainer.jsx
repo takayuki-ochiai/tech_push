@@ -6,8 +6,6 @@ import CircularProgress from 'material-ui/CircularProgress';
 import TopicSettings from '../../components/pages/TopicSettings';
 import TopicSettingStore from '../../stores/TopicSettings';
 
-import { apiResource } from '../../main';
-
 /**
  * コンテナクラス
  * データ取得・storeへのセットなどを行う
@@ -24,8 +22,12 @@ class TopicSettingsContainer extends MicroContainer {
     return this.state.store;
   }
 
+  get apiResource() {
+    return this.props.apiResource;
+  }
+
   async setInitialData() {
-    const newStore = await TopicSettingStore.newInstance();
+    const newStore = await TopicSettingStore.newInstance(this.props.apiResource);
     this.setState({
       store: newStore
     });
@@ -51,7 +53,7 @@ class TopicSettingsContainer extends MicroContainer {
     });
 
     const followTopicsParam = followTopics.map(followTopic => followTopic.toObject());
-    const updateResponse = await apiResource.post('/api/v1/user/interests/follow', { topics: followTopicsParam });
+    const updateResponse = await this.apiResource.post('/api/v1/user/interests/follow', { topics: followTopicsParam });
     // エラー時はロールバックする
     if (updateResponse.error) {
       this.setState({
@@ -75,7 +77,7 @@ class TopicSettingsContainer extends MicroContainer {
 
     // 画面ロールバック用のトピック情報を取得しておく
     const unfollowTopicParam = unfollowTopics.map(unfollowTopic => unfollowTopic.toObject());
-    const updateResponse = await apiResource.post('/api/v1/user/interests/unfollow', { topics: unfollowTopicParam });
+    const updateResponse = await this.apiResource.post('/api/v1/user/interests/unfollow', { topics: unfollowTopicParam });
     // エラー時はロールバックする
     if (updateResponse.error) {
       this.setState({

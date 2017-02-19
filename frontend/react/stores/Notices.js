@@ -1,5 +1,4 @@
 import { Record, List } from 'immutable';
-import { apiResource } from '../main';
 import Notice from '../stores/entities/Notice';
 
 const NoticesBase = new Record({
@@ -8,15 +7,15 @@ const NoticesBase = new Record({
 });
 
 export default class Notices extends NoticesBase {
-  static async fetchNotices() {
+  static async fetchNotices(apiResource) {
     const body = await apiResource.get('/api/v1/user/notices');
     const notices = new List(body.notices.map(notice => new Notice(notice)));
     // TODO 500エラーハンドリング
     return notices;
   }
 
-  static async newInstance() {
-    const notices = await this.fetchNotices();
+  static async newInstance(apiResource) {
+    const notices = await this.fetchNotices(apiResource);
     const newStore = new this({
       notices,
       isLoading: false

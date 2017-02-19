@@ -13,7 +13,7 @@ export default class BooksContainer extends MicroContainer {
   }
 
   async setInitialData() {
-    const newStore = await BooksStore.newInstance();
+    const newStore = await BooksStore.newInstance(this.props.apiResource);
     this.setState({
       store: newStore
     });

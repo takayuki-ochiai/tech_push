@@ -13,10 +13,10 @@ module V1
     resource :access_token do
       desc '現在のアクセストークンを戻す'
       get '/' do
-        authenticate_user
-        user = current_user
-        user.update_access_token! unless user.access_token
-        { access_token: user.access_token }.camelize_keys
+        uid = request.headers['User-Id']
+        # uid とfacebook access_tokenを認証
+        user = User.find_by(uid: uid)
+        { access_token: user.try(:access_token) }.camelize_keys
       end
     end
 

@@ -1,8 +1,17 @@
+#fb-root
+script src="https://connect.facebook.net/ja_JP/all.js"
 script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"
 #app
-= javascript_include_tag webpack_asset_path('main.js'), 'data-turbolinks-track': 'reload'
 javascript:
+  FB.init({
+    appId: "#{ENV['FACEBOOK_APP_ID']}", ///// ← 解説を参照 /////
+    status: true, // check login status
+    cookie: true, // enable cookies to allow the server to access the session
+    xfbml: true  // parse XFBML
+  });
+
   OneSignal.push(['init', {
-    appId: '71f4dc03-743d-4995-8755-58d74502ecf9',
+    appId: "#{ENV['ONESIGNAL_APP_ID']}",
     autoRegister: true
   }]);
+= javascript_include_tag webpack_asset_path('main.js'), 'data-turbolinks-track': 'reload'

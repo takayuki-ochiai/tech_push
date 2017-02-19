@@ -1,5 +1,4 @@
 import { Record, List } from 'immutable';
-import { apiResource } from '../main';
 import Topic from '../stores/entities/Topic';
 import TopicTreePath from '../stores/entities/TopicTreePath';
 import TopicFilter from '../models/TopicFilter';
@@ -11,8 +10,8 @@ const TopicSettingsBase = new Record({
 });
 
 export default class TopicSettings extends TopicSettingsBase {
-  static async newInstance() {
-    const initialData = await this.fetchTopicSettings();
+  static async newInstance(apiResource) {
+    const initialData = await this.fetchTopicSettings(apiResource);
     let topics = initialData.topics
       .map(topic => new Topic(topic))
       .map(topic => {
@@ -35,7 +34,7 @@ export default class TopicSettings extends TopicSettingsBase {
     return newStore;
   }
 
-  static async fetchTopicSettings() {
+  static async fetchTopicSettings(apiResource) {
     const interestResponse = await apiResource.get('/api/v1/user/interests');
     const topicResponse = await apiResource.get('/api/v1/topics');
     // TODO 500エラーハンドリング
