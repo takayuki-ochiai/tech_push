@@ -44,6 +44,9 @@ gem 'rakuten_web_service'
 # 多対多フォーム
 gem 'cocoon'
 
+# Facebook api 接続用
+gem 'koala'
+
 group :development do
   gem 'capistrano'
   gem 'capistrano-rails'

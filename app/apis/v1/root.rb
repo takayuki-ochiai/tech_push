@@ -42,7 +42,7 @@ module V1
       end
 
       def current_user
-        @user || warden.user
+        @user
       end
 
       # Authentication Failure

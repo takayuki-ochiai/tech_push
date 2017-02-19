@@ -4,8 +4,8 @@ import { withRouter } from 'react-router';
 
 class LoginContainer extends MicroContainer {
   async onClickLoginButton() {
-    const uid = await this.props.fbClient.login();
-    await this.props.apiResource.authenticate(uid);
+    const { uid, accessToken } = await this.props.fbClient.login();
+    await this.props.apiResource.authenticate(uid, accessToken);
     if (this.props.apiResource.authorized) {
       this.props.router.push('/');
     }

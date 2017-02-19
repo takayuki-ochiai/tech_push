@@ -65,10 +65,9 @@ class App extends Component {
 
   async initialize() {
     const fbClient = await FBClient.initialize();
-    const { id, error } = await fbClient.syncApi('/me', 'get');
     // ログインしてなかったらログイン画面へ
     // ログインしてたらリクエストされたページへ
-    const apiResource = await ApiResource.initialize(id);
+    const apiResource = await ApiResource.initialize(fbClient.uid, fbClient.accessToken);
     this.setState({
       fbClient,
       apiResource

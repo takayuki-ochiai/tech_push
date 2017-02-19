@@ -6,27 +6,30 @@ class ApiResource {
     this.accessToken = accessToken;
   }
 
-  static initialize(uid) {
+  static initialize(uid, fbToken) {
     const newInstance = new Promise(
       resolve => {
         request
           .get('/api/v1/access_token')
-          .set('User-Id', uid)
+          .set('Uid', uid)
+          .set('Fb-Token', fbToken)
           .end((err, res) => resolve(new this(res.body.accessToken)));
       }
     );
     return newInstance;
   }
 
-  authenticate(uid) {
+  authenticate(uid, fbToken) {
+    const self = this;
     const promise = new Promise(
       resolve => {
         request
           .get('/api/v1/access_token')
-          .set('User-Id', uid)
+          .set('Uid', uid)
+          .set('Fb-Token', fbToken)
           .end((err, res) => {
-            this.accessToken = res.body.accessToken;
-            resolve(this);
+            self.accessToken = res.body.accessToken;
+            resolve(self);
           });
       }
     );

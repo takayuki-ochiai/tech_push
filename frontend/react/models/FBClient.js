@@ -31,7 +31,10 @@ export default class FBClient {
         } else {
           this.status = response.status;
         }
-        resolve(this.uid);
+        resolve({
+          uid: this.uid,
+          accessToken: this.accessToken
+        });
       });
     });
   }

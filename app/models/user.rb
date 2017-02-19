@@ -20,15 +20,13 @@ class User < ApplicationRecord
   after_create :update_access_token!
 
   def update_access_token!
-    self.access_token = "#{id}:#{Devise.friendly_token}"
+    self.access_token = "#{Devise.friendly_token}"
     save!
   end
 
   def self.find_by_authentication_token(access_token)
-    return unless access_token.include?(':')
-    user_id = access_token.split(':').first
-    user = User.where(id: user_id).first
-    user if user && Devise.secure_compare(user.access_token, access_token)
+    user = User.find_by(access_token: access_token)
+    user
   end
 
   def admin?
