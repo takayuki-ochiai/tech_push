@@ -1,6 +1,5 @@
 import React from 'react';
 import MicroContainer from 'react-micro-container';
-import { withRouter } from 'react-router';
 import Paper from 'material-ui/Paper';
 import AppBar from 'material-ui/AppBar';
 import Subheader from 'material-ui/Subheader';
@@ -86,4 +85,4 @@ class LoginContainer extends MicroContainer {
   }
 }
 
-export default withRouter(LoginContainer);
+export default LoginContainer;

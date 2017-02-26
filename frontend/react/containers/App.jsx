@@ -13,6 +13,7 @@ import Books from './pages/BooksContainer';
 import TopicSettings from './pages/TopicSettingsContainer';
 import Notices from './pages/NoticesContainer';
 import Login from './pages/LoginContainer';
+import { injectBaseFunction, forceLogin } from './injector';
 
 function delay(millSecond) {
   return new Promise(resolve => {
@@ -44,16 +45,6 @@ async function registerDevice(apiResource) {
   }
 }
 
-function injectGlobalState(WrappedComponent, globalState) {
-  return class extends Component {
-    render() {
-      // ローカルコンポーネントで対象のコンポーネントのReact elementを返す
-      return <WrappedComponent {...globalState} {...this.props} />;
-    }
-  };
-}
-
-
 class App extends Component {
   componentDidMount() {
     this.state = {
@@ -80,17 +71,16 @@ class App extends Component {
       return <div />;
     }
 
-    const TopicSettingsPage = injectGlobalState(TopicSettings, this.state);
 
     return (
       <MuiThemeProvider>
         <Router history={hashHistory}>
-          <Route path="/login" component={injectGlobalState(Login, this.state)} />
-          <Route path="/" component={injectGlobalState(Layout, this.state)}>
-            <IndexRoute component={injectGlobalState(Books, this.state)} />
-            <Route path="/topics/edit" component={TopicSettingsPage} />
-            <Route path="/topics/edit/:parentId" component={TopicSettingsPage} />
-            <Route path="/notices" component={injectGlobalState(Notices, this.state)} />
+          <Route path="/login" component={injectBaseFunction(Login, this.state)} />
+          <Route path="/" component={injectBaseFunction(Layout, this.state)}>
+            <IndexRoute component={injectBaseFunction(Books, this.state)} />
+            <Route path="/topics/edit" component={forceLogin(TopicSettings, this.state)} />
+            <Route path="/topics/edit/:parentId" component={forceLogin(TopicSettings, this.state)} />
+            <Route path="/notices" component={forceLogin(Notices, this.state)} />
           </Route>
         </Router>
       </MuiThemeProvider>

@@ -1,6 +1,5 @@
 import React from 'react';
 import MicroContainer from 'react-micro-container';
-import { withRouter } from 'react-router';
 import CircularProgress from 'material-ui/CircularProgress';
 
 import TopicSettings from '../../components/pages/TopicSettings';
@@ -119,4 +118,4 @@ class TopicSettingsContainer extends MicroContainer {
   }
 }
 
-export default withRouter(TopicSettingsContainer);
+export default TopicSettingsContainer;

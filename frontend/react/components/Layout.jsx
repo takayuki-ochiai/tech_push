@@ -6,7 +6,6 @@ import ArrowBackIcon from 'material-ui/svg-icons/navigation/arrow-back';
 import MenuItem from 'material-ui/MenuItem';
 import AppBar from 'material-ui/AppBar';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { withRouter } from 'react-router';
 // import transitionStyle from '../../stylesheet/routerTransition.css';
 
 const NO_ANIMATION = 'noAnimation';
@@ -89,9 +88,6 @@ class Layout extends Component {
   render() {
     const router = this.props.router;
     const transition = this.props.location.query.transition || NO_ANIMATION;
-    if (!this.props.apiResource.authorized) {
-      this.props.router.push('/login');
-    }
 
     const transitionEnterTimeout = transition === NO_ANIMATION ? 1 : 300;
     const transitionLeaveTimeout = transition === NO_ANIMATION ? 1 : 300;
@@ -143,6 +139,18 @@ class Layout extends Component {
           >
             トピックの設定
           </MenuItem>
+          <MenuItem
+            onTouchTap={event => {
+              event.preventDefault();
+              this.closeSideMenu();
+              router.push({
+                pathname: '/login',
+                // query: { transition: SLIDE_LEFT }
+              });
+            }}
+          >
+            ログイン
+          </MenuItem>
         </Drawer>
         <div className="wrapper">
           <ReactCSSTransitionGroup
@@ -164,4 +172,4 @@ class Layout extends Component {
 
 }
 
-export default withRouter(Layout);
+export default Layout;
