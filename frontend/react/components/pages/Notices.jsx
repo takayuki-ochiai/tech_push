@@ -9,6 +9,7 @@ class Notices extends Component {
     const notices = this.props.store.notices;
     const noticeListItems = notices.map(notice => (
       <ListItem
+        key={notice.id}
         primaryText={notice.book.title}
         secondaryText={notice.contents}
       />
