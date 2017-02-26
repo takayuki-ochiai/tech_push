@@ -75,9 +75,9 @@ class App extends Component {
     return (
       <MuiThemeProvider>
         <Router history={hashHistory}>
-          <Route path="/login" component={injectBaseFunction(Login, this.state)} />
           <Route path="/" component={injectBaseFunction(Layout, this.state)}>
             <IndexRoute component={injectBaseFunction(Books, this.state)} />
+            <Route path="/login" component={injectBaseFunction(Login, this.state)} />
             <Route path="/topics/edit" component={forceLogin(TopicSettings, this.state)} />
             <Route path="/topics/edit/:parentId" component={forceLogin(TopicSettings, this.state)} />
             <Route path="/notices" component={forceLogin(Notices, this.state)} />

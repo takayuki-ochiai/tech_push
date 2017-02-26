@@ -12,6 +12,10 @@ const NO_ANIMATION = 'noAnimation';
 const SLIDE_LEFT = 'slideLeft';
 const SLIDE_RIGHT = 'slideRight';
 
+const hiddenMenu = {
+  display: 'none'
+};
+
 class Layout extends Component {
   constructor() {
     super();
@@ -88,7 +92,7 @@ class Layout extends Component {
   render() {
     const router = this.props.router;
     const transition = this.props.location.query.transition || NO_ANIMATION;
-
+    const authorized = this.props.apiResource.authorized;
     const transitionEnterTimeout = transition === NO_ANIMATION ? 1 : 300;
     const transitionLeaveTimeout = transition === NO_ANIMATION ? 1 : 300;
     const childElement = <div className="content">{this.props.children}</div>;
@@ -116,6 +120,7 @@ class Layout extends Component {
             新刊書籍
           </MenuItem>
           <MenuItem
+            style={authorized ? {} : hiddenMenu}
             onTouchTap={event => {
               event.preventDefault();
               this.closeSideMenu();
@@ -128,6 +133,7 @@ class Layout extends Component {
             通知一覧
           </MenuItem>
           <MenuItem
+            style={authorized ? {} : hiddenMenu}
             onTouchTap={event => {
               event.preventDefault();
               this.closeSideMenu();
