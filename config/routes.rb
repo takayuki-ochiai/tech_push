@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   mount API::Root => '/'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'main#index'
-  get 'signin', to: 'sessions#index'
+  # get 'signin', to: 'sessions#index'
 
   namespace :admin do
     resources :books
