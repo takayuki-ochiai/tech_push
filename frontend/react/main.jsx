@@ -9,9 +9,16 @@ import App from './containers/App';
 // // Material UIを使用する場合、ReactがV1.0になるまでは必要らしい
 injectTapEventPlugin();
 
-render(
-  <AppContainer>
-    <App />
-  </AppContainer>,
-  document.getElementById('app')
-);
+if (process.env.NODE_ENV === 'production') {
+  render(
+    <App />,
+    document.getElementById('app')
+  );
+} else {
+  render(
+    <AppContainer>
+      <App />
+    </AppContainer>,
+    document.getElementById('app')
+  );
+}
