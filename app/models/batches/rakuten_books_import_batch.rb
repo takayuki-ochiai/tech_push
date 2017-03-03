@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 module RakutenBooksImportBatch
-  private_class_method :create_params
+  # なぜか別環境で動かなくなるので一回コメントアウト
+  # private_class_method :create_params
 
   def self.execute(
     params = nil,
