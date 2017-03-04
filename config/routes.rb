@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   # get 'signin', to: 'sessions#index'
 
   namespace :admin do
+    get 'signin', to: 'sessions#index'
     resources :books
   end
 end
