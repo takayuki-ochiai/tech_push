@@ -62,8 +62,8 @@ module.exports = {
   },
   entry: entrySources,
   output: {
-    // path: '../public/assets',
-    path: `${__dirname}/../app/assets/javascripts`,
+    path: '../public/assets',
+    // path: `${__dirname}/../app/assets/javascripts`,
     publicPath,
     filename
   },
