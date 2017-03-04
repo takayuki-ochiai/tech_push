@@ -8,7 +8,7 @@ import FontIcon from 'material-ui/FontIcon';
 
 const paperStyle = {
   height: 400,
-  width: 350,
+  width: 300,
   textAlign: 'center',
   display: 'inline-block'
 };
@@ -47,7 +47,7 @@ class LoginContainer extends MicroContainer {
       >
         <div
           style={{
-            width: 350,
+            width: 300,
             marginTop: 100,
             marginLeft: 'auto',
             marginRight: 'auto'
