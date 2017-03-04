@@ -106,6 +106,7 @@ class Layout extends Component {
           open={this.state.isSideMenuOpen}
           docked={false}
           onRequestChange={this.onRequestChangeSideMenu}
+          disableSwipeToOpen
         >
           <MenuItem
             onTouchTap={event => {
