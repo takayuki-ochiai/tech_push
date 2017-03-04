@@ -4,6 +4,7 @@ const path = require('path');
 const cssLoader = 'style!css-loader?modules&importLoaders=1&'
   + 'localIdentName=[name]__[local]___[hash:base64:5]';
 
+
 // Railsにビルドしたjsを乗せるためのプラグイン
 const ManifestPlugin = require('webpack-manifest-plugin');
 
@@ -13,10 +14,11 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 /**
  * Environment settings
  */
-const devtool    = '#eval-source-map';
+const devtool    = '#eval';
+// const fileName   = DEBUG ? '[name]' : '[name]-[hash]';
 // 本番ビルドの時はassets pipelineに乗せるためerbの拡張子くっつける
 const filename   = '[name].js';
-const publicPath = 'https://localhost:3500/assets/';
+const publicPath = '/assets/';
 
 const plugins = [
   // Webpack 1.0
@@ -35,6 +37,14 @@ plugins.push(new CleanWebpackPlugin(['assets'], {
   dry: false
 }));
 
+plugins.push(
+  /* DefinePluginの実行 */
+  new webpack.DefinePlugin({
+    // process.env.NODE_ENVを'production'に置き換える
+    'process.env.NODE_ENV': JSON.stringify('production')
+  })
+);
+
 const entrySources = [
   // babel-polyfillのimport用
   'babel-polyfill',
@@ -45,7 +55,6 @@ const entrySources = [
 ];
 
 module.exports = {
-  debug: true,
   devtool,
   resolve: {
     // import/requireをするときに拡張子を省略できるようにする
@@ -71,12 +80,5 @@ module.exports = {
         loader: cssLoader,
       },
     ],
-  },
-  devServer: {
-    headers: {
-      // 'Access-Control-Allow-Origin': ['http://localhost:3000', 'http://local.examples.com/:3000'],
-      'Access-Control-Allow-Origin': 'https://local.examples.com.dev:9292',
-      'Access-Control-Allow-Credentials': 'true'
-    }
   }
 };
