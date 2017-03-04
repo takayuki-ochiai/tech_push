@@ -36,6 +36,8 @@ class TopicSettings extends Component {
         label={label}
         onTouchTap={event => {
           event.stopPropagation();
+          // rippleの動作が親のListItemに波及するのを避ける
+          event.preventDefault();
           if (topic.isFollow) {
             this.props.dispatch('unfollowTopic', topic);
           } else {
