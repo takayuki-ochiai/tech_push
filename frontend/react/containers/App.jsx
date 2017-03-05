@@ -7,48 +7,13 @@ import { IndexRoute, Router, Route, hashHistory } from 'react-router';
 import Layout from '../components/Layout';
 import ApiResource from '../models/ApiResource';
 import FBClient from '../models/FBClient';
-import UAParser from '../models/UAParser';
+import DeviceRegister from '../models/DeviceRegister';
 
 import Books from './pages/BooksContainer';
 import TopicSettings from './pages/TopicSettingsContainer';
 import Notices from './pages/NoticesContainer';
 import Login from './pages/LoginContainer';
 import { injectBaseFunction, forceLogin } from './injector';
-
-function delay(millSecond) {
-  return new Promise(resolve => {
-    setTimeout(() => resolve(), millSecond);
-  });
-}
-
-async function fetchPlayerId() {
-  let playerId = await OneSignal.getUserId();
-  while (!playerId) {
-    playerId = await OneSignal.getUserId();
-    await delay(2000);
-  }
-
-  return playerId;
-}
-
-async function registerDevice(apiResource) {
-  // facebookログイン済みで認証されている時だけデバイス登録実行
-  if (!apiResource.authorized) {
-    return;
-  }
-
-  const body = await apiResource.get('/api/v1/user');
-  const devices = body.user.devices;
-  const playerId = await fetchPlayerId();
-  if (!devices.some(device => device.oneSignalPlayerId === playerId)) {
-    const device = UAParser.device;
-    // デバイスがiOSの場合はWeb Pushできないのでデバイス登録しない
-    if (device.deviceModel !== 'iOS') {
-      const param = Object.assign({ oneSignalPlayerId: playerId }, device);
-      apiResource.post('/api/v1/user/device', param);
-    }
-  }
-}
 
 class App extends Component {
   componentDidMount() {
@@ -68,7 +33,7 @@ class App extends Component {
       fbClient,
       apiResource
     });
-    registerDevice(apiResource);
+    DeviceRegister.register(apiResource);
   }
 
   render() {

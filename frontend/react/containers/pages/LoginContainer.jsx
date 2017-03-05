@@ -5,6 +5,8 @@ import AppBar from 'material-ui/AppBar';
 import Subheader from 'material-ui/Subheader';
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
+import DeviceRegister from '../../models/DeviceRegister';
+
 
 const paperStyle = {
   height: 400,
@@ -34,6 +36,7 @@ class LoginContainer extends MicroContainer {
     const { uid, accessToken } = await this.props.fbClient.login();
     await this.props.apiResource.authenticate(uid, accessToken);
     if (this.props.apiResource.authorized) {
+      DeviceRegister.register(this.props.apiResource);
       this.props.router.push('/');
     }
   }
