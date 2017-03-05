@@ -32,6 +32,11 @@ async function fetchPlayerId() {
 }
 
 async function registerDevice(apiResource) {
+  // facebookログイン済みで認証されている時だけデバイス登録実行
+  if (!apiResource.authorized) {
+    return;
+  }
+
   const body = await apiResource.get('/api/v1/user');
   const devices = body.user.devices;
   const playerId = await fetchPlayerId();
