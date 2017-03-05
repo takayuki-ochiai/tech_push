@@ -38,7 +38,7 @@ module V1
           @user = User.find_by_authentication_token(access_token)
           return true
         end
-        warden.authenticated?
+        return false
       end
 
       def current_user
