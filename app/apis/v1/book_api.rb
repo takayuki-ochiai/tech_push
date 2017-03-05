@@ -9,10 +9,6 @@ module V1
       rack_response({ message: e.message, status: 500 }.to_json, 500)
     end
 
-    before do
-      authenticate_user
-    end
-
     resource :books do
       desc '書籍一覧を取得します'
       get '/' do
