@@ -21,12 +21,14 @@ rails_root = Dir.pwd
 key = File.join(rails_root, "config", "environments", RAILS_ENV, "server.key")
 cert = File.join(rails_root, "config", "environments", RAILS_ENV, "server.crt")
 
-ssl_bind '0.0.0.0', '9292', {
-  key: key,
-  cert: cert,
-  # ca: "environments/develop_secrets/", # オレオレ証明書の場合は必要ないです／中間証明書が必要な場合は指定してください
-  verify_mode: "none"
-}
+if RAILS_ENV != 'production'
+  ssl_bind '0.0.0.0', '9292', {
+    key: key,
+    cert: cert,
+    # ca: "environments/develop_secrets/", # オレオレ証明書の場合は必要ないです／中間証明書が必要な場合は指定してください
+    verify_mode: "none"
+  }
+end
 
 if "development" != RAILS_ENV
   pidfile File.join(rails_root, 'tmp', 'pids', 'puma.pid')
