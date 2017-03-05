@@ -123,8 +123,8 @@ namespace :deploy do
         execute "cd #{shared_path}/log; touch puma.access.log"
       end
 
-      unless test("[ -f #{shared_path}/log/staging.log ]")
-        execute "cd #{shared_path}/log; touch staging.log"
+      unless test("[ -f #{shared_path}/log/#{fetch(:stage)}.log ]")
+        execute "cd #{shared_path}/log; touch #{fetch(:stage)}.log"
       end
 
       unless test("[ -d #{shared_path}/tmp/pids ]")

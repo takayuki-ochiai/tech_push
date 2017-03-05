@@ -9,7 +9,7 @@ threads threads_count, threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests, default is 3000.
 #
-port        ENV.fetch("PORT") { 3000 }
+
 
 # Specifies the `environment` that Puma will run in.
 
@@ -21,12 +21,25 @@ environment RAILS_ENV
 rails_root = Dir.pwd
 key = File.join(rails_root, "config", "environments", RAILS_ENV, "server.key")
 cert = File.join(rails_root, "config", "environments", RAILS_ENV, "server.crt")
-ssl_bind '0.0.0.0', '9292', {
-  key: key,
-  cert: cert,
-  # ca: "environments/develop_secrets/", # オレオレ証明書の場合は必要ないです／中間証明書が必要な場合は指定してください
-  verify_mode: "none"
-}
+
+if "production" == RAILS_ENV
+  port        ENV.fetch("PORT") { 80 }
+  ssl_bind '0.0.0.0', '443', {
+    key: key,
+    cert: cert,
+    # ca: "environments/develop_secrets/", # オレオレ証明書の場合は必要ないです／中間証明書が必要な場合は指定してください
+    verify_mode: "none"
+  }
+else
+  port        ENV.fetch("PORT") { 3000 }
+  ssl_bind '0.0.0.0', '9292', {
+    key: key,
+    cert: cert,
+    # ca: "environments/develop_secrets/", # オレオレ証明書の場合は必要ないです／中間証明書が必要な場合は指定してください
+    verify_mode: "none"
+  }
+end
+
 
 if "development" != RAILS_ENV
   pidfile File.join(rails_root, 'tmp', 'pids', 'puma.pid')

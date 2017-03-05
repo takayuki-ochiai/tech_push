@@ -39,7 +39,7 @@ Rails.application.configure do
   config.assets.enabled = true
   config.assets.compile = true
   # app/assets/javascripts/main.jsをダイジェスト化させる設定を追加
-  config.assets.precompile += ['main.js']
+  # config.assets.precompile += ['main.js']
 
 
   # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
@@ -64,7 +64,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store

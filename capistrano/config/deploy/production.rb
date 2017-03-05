@@ -1,3 +1,20 @@
+set :production, :production
+set :rails_env, 'production'
+
+# EC2サーバーのIP、EC2サーバーにログインするユーザー名、サーバーのロールを記述
+# dbのロールを記載していないとrake db:migrateしてくれない
+# webのロールを記載していないとassets precompileしてくれない
+server '13.113.122.79', user: 'suidenOTI', roles: %w{app db web}
+# デプロイするサーバーにsshログインする鍵の情報を記述
+set :ssh_options, keys: '~/.ssh/tech_push_prod_rsa'
+
+# capistrano-rbenvを利用してdeploy時にも環境変数を反映させる
+# http://qiita.com/kenjiszk/items/2e45660ce3b46596dfa1
+set :rbenv_prefix, "source /etc/profile.d/env_vars.sh && RAILS_ENV=#{fetch(:production)} /usr/local/rbenv/bin/rbenv exec"
+
+set :linked_files, %w{log/production.log log/puma.error.log log/puma.access.log tmp/pids/puma.pid tmp/pids/puma.state}
+set :linked_dirs, %w{frontend/node_modules config/environments/production}
+
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.

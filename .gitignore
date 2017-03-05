@@ -29,7 +29,9 @@ capistrano/log
 # develop環境のオレオレ証明書などを置いてあるフォルダなのでignore
 config/environments/development
 config/environments/staging
+config/environments/production
 
 # 環境変数などが書いてあるファイルはignore
 .env
 itamae/recipes/remote_files/env_st.yml
+itamae/recipes/remote_files/env_prod.yml

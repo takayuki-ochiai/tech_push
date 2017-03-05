@@ -45,3 +45,11 @@ staging:
   database: <%=ENV['STAGING_DB_NAME']%>
   username: <%=ENV['STAGING_DB_USER']%>
   password: <%=ENV['STAGING_DB_PASSWORD']%>
+
+production:
+  <<: *default
+  socket: /var/lib/mysql/mysql.sock
+  host: <%=ENV['PRODUCTION_DB_HOST']%>
+  database: <%=ENV['PRODUCTION_DB_NAME']%>
+  username: <%=ENV['PRODUCTION_DB_USER']%>
+  password: <%=ENV['PRODUCTION_DB_PASSWORD']%>
