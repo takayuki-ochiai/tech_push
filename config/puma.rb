@@ -18,19 +18,24 @@ environment RAILS_ENV
 
 # SSLで必要な証明書などのパスを設定する。
 rails_root = Dir.pwd
-key = File.join(rails_root, "config", "environments", RAILS_ENV, "server.key")
-cert = File.join(rails_root, "config", "environments", RAILS_ENV, "server.crt")
+# key = File.join(rails_root, "config", "environments", RAILS_ENV, "server.key")
+# cert = File.join(rails_root, "config", "environments", RAILS_ENV, "server.crt")
 
-if RAILS_ENV != 'production'
-  ssl_bind '0.0.0.0', '9292', {
-    key: key,
-    cert: cert,
-    # ca: "environments/develop_secrets/", # オレオレ証明書の場合は必要ないです／中間証明書が必要な場合は指定してください
-    verify_mode: "none"
-  }
+# if RAILS_ENV != 'production'
+#   ssl_bind '0.0.0.0', '9292', {
+#     key: key,
+#     cert: cert,
+#     # ca: "environments/develop_secrets/", # オレオレ証明書の場合は必要ないです／中間証明書が必要な場合は指定してください
+#     verify_mode: "none"
+#   }
+# end
+
+if RAILS_ENV == 'development'
+  # 同じOS内ならnginxはソケット通信できるので
+  bind "unix://#{rails_root}/config/environments/development/tech-push.sock"
 end
 
-if "development" != RAILS_ENV
+if RAILS_ENV != 'development'
   pidfile File.join(rails_root, 'tmp', 'pids', 'puma.pid')
   state_path File.join(rails_root, 'tmp', 'pids', 'puma.state')
 end

@@ -123,6 +123,14 @@ namespace :deploy do
         execute "cd #{shared_path}/log; touch puma.access.log"
       end
 
+      unless test("[ -f #{shared_path}/log/nginx.error.log ]")
+        execute "cd #{shared_path}/log; touch nginx.error.log"
+      end
+
+      unless test("[ -f #{shared_path}/log/nginx.access.log ]")
+        execute "cd #{shared_path}/log; touch nginx.access.log"
+      end
+
       unless test("[ -f #{shared_path}/log/#{fetch(:stage)}.log ]")
         execute "cd #{shared_path}/log; touch #{fetch(:stage)}.log"
       end
@@ -158,6 +166,15 @@ namespace :deploy do
       upload!(
         "#{DEVELOP_PROJECT_DIR}/config/environments/#{fetch(:stage)}/server.crt",
         "#{shared_path}/config/environments/#{fetch(:stage)}/server.crt"
+      )
+
+      # nginx設定ファイルをアップロード
+      unless test("[ -d #{shared_path}/nginx } ]")
+        execute "mkdir -p #{shared_path}/nginx }"
+      end
+      upload!(
+        "#{DEVELOP_PROJECT_DIR}/config/environments/#{fetch(:stage)}/nginx.conf",
+        "#{shared_path}/nginx/webserver.conf"
       )
     end
 
