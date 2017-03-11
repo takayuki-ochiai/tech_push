@@ -15,6 +15,9 @@ set :rbenv_prefix, "source /etc/profile.d/env_vars.sh && RAILS_ENV=#{fetch(:stag
 set :linked_files, %w{log/production.log log/puma.error.log log/puma.access.log tmp/pids/puma.pid tmp/pids/puma.state}
 set :linked_dirs, %w{frontend/node_modules config/environments/production}
 
+# サーバー証明書ファイル名
+set :ssl_crt_file, 'server.chained.crt'
+
 # server-based syntax
 # ======================
 # Defines a single server with a list of roles and multiple properties.

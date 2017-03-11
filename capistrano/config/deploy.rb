@@ -163,8 +163,10 @@ namespace :deploy do
         "#{DEVELOP_PROJECT_DIR}/config/environments/#{fetch(:stage)}/server.key",
         "#{shared_path}/config/environments/#{fetch(:stage)}/server.key"
       )
+
+      ssl_crt_file = fetch(:ssl_crt_file) || 'server.crt'
       upload!(
-        "#{DEVELOP_PROJECT_DIR}/config/environments/#{fetch(:stage)}/server.crt",
+        "#{DEVELOP_PROJECT_DIR}/config/environments/#{fetch(:stage)}/#{ssl_crt_file}",
         "#{shared_path}/config/environments/#{fetch(:stage)}/server.crt"
       )
 
