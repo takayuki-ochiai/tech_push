@@ -8,7 +8,7 @@
 require 'ostruct'
 
 TopicTreePath.delete_all
-Topic.delete_all
+# Topic.all.each(&:destroy)
 
 rails_root = Dir.pwd
 items = YAML.load_file("#{rails_root}/db/fixtures/topic.yml")
