@@ -7,8 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 require 'ostruct'
 
-Topic.delete_all
 TopicTreePath.delete_all
+Topic.delete_all
 
 rails_root = Dir.pwd
 items = YAML.load_file("#{rails_root}/db/fixtures/topic.yml")
