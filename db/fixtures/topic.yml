@@ -762,3 +762,89 @@
   type: 2
   parent_ids:
     - 140
+- id: 152
+  name: アルゴリズム
+  type: 2
+  parent_ids:
+    - 81
+- id: 153
+  name: リファクタリング
+  type: 2
+  parent_ids:
+    - 81
+- id: 154
+  name: 資格
+  type: 1
+  parent_ids:
+- id: 155
+  name: ITパスポート試験
+  type: 2
+  parent_ids:
+    - 154
+- id: 156
+  name: 情報セキュリティマネジメント試験
+  type: 2
+  parent_ids:
+    - 154
+- id: 157
+  name: 基本情報技術者試験
+  type: 2
+  parent_ids:
+    - 154
+
+- id: 158
+  name: 応用情報技術者試験
+  type: 2
+  parent_ids:
+    - 154
+- id: 159
+  name: ITストラテジスト試験
+  type: 2
+  parent_ids:
+    - 154
+- id: 160
+  name: システムアーキテクト試験
+  type: 2
+  parent_ids:
+    - 154
+- id: 171
+  name: プロジェクトマネージャ試験
+  type: 2
+  parent_ids:
+    - 154
+- id: 172
+  name: ネットワークスペシャリスト試験
+  type: 2
+  parent_ids:
+    - 154
+- id: 173
+  name: データベーススペシャリスト試験
+  type: 2
+  parent_ids:
+    - 154
+- id: 174
+  name: エンベデッドシステムスペシャリスト試験
+  type: 2
+  parent_ids:
+    - 154
+- id: 175
+  name: ITサービスマネージャ試験
+  type: 2
+  parent_ids:
+    - 154
+- id: 176
+  name: システム監査技術者試験
+  type: 2
+  parent_ids:
+    - 154
+- id: 177
+  name: 情報処理安全確保支援士試験
+  type: 2
+  parent_ids:
+    - 154
+- id: 2
+  name: Sass(SCSS)
+  type: 2
+  parent_ids:
+    - 1
+    - 15
