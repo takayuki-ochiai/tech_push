@@ -842,9 +842,32 @@
   type: 2
   parent_ids:
     - 154
-- id: 2
+- id: 178
   name: Sass(SCSS)
   type: 2
   parent_ids:
     - 1
     - 15
+- id: 179
+  name: Photshop
+  type: 2
+  parent_ids:
+    - 1
+    - 15
+- id: 180
+  name: Windows Server
+  type: 2
+  parent_ids:
+    - 70
+- id: 181
+  name: Kotlin
+  type: 2
+  parent_ids:
+    - 35
+    - 81
+- id: 182
+  name: ExcelVBA
+  type: 2
+  parent_ids:
+    - 140
+    - 81
