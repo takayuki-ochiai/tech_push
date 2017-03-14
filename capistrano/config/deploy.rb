@@ -209,16 +209,28 @@ namespace :deploy do
     end
   end
 
+  desc 'cronを設定'
+  task :update_crontab do
+    on roles(:db) do
+      with rails_env: fetch(:rails_env) do
+        within current_path do
+          execute :bundle, :exec, 'whenever --update-crontab'
+        end
+      end
+    end
+  end
 
 
-  before :check,        :prepare_shared
-  after  :updated,        :upload_common_file
-  before :starting,     :confirm
 
-  after  :finishing,    :cleanup
+  before :check, :prepare_shared
+  after  :updated, :upload_common_file
+  before :starting, :confirm
+
+  after  :finishing, :cleanup
+  after  :finished, :update_crontab
 
   namespace :assets do
-    before :precompile,    :transpile_js
+    before :precompile, :transpile_js
   end
 end
 
