@@ -3,6 +3,7 @@
 module NoticeSendBatch
   BEFORE_PUBLISH = 3
   NOTIFY_HOUR = 11
+  WAIT_SECONDS = 30
   def self.execute
     users = User.all.includes(:interests)
     users.each do |user|
@@ -22,11 +23,11 @@ module NoticeSendBatch
       )
       target_player_ids = send_notices.pluck(:one_signal_player_id)
 
-      body = OneSignalApiClient.notifi_messages(
-        notice.headings,
-        notice.contents,
+      body = OneSignalApiClient.notify_messages(
+        notice,
         target_player_ids
       )
+      sleep(WAIT_SECONDS)
 
       Rails.logger.info("NoticeSendBatch OneSignalApiClient contents: #{notice.contents} response: #{body}")
 
