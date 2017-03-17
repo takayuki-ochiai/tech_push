@@ -11,7 +11,17 @@ class Notices extends Component {
       <ListItem
         key={notice.id}
         primaryText={notice.book.title}
-        secondaryText={notice.contents}
+        secondaryText={
+          <div>
+            <p>{notice.contents}</p>
+            <p>{notice.notifyDate}通知</p>
+          </div>
+        }
+        secondaryTextLines={2}
+        onTouchTap={event => {
+          event.preventDefault();
+          window.open(notice.linkUrl, '_blank');
+        }}
       />
     ));
     return (

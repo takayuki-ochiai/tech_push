@@ -5,6 +5,8 @@ const NoticeBase = new Record({
   book_id: null,
   user_id: null,
   contents: null,
+  linkUrl: null,
+  notifyDate: null,
   // book_idにひもづくbook取得
   book: null
 });
