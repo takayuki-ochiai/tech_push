@@ -20,10 +20,12 @@ module NoticeReserver
           book_id: book.id,
           user_id: user.id,
           device_id: device.id,
+          link_url: book.item_url,
           one_signal_player_id: device.one_signal_player_id,
           device_model: device.device_model,
           device_os: device.device_os,
-          contents: "#{book.title}は#{book.sales_date.strftime('%Y/%m/%d')}日後に発売です",
+          contents: "#{book.title}は#{book.sales_date.strftime('%-m月%-d日')}に発売です",
+          chrome_web_icon: book.small_image_url,
           headings: 'TechPush(テックプッシュ) IT技術書の新刊通知サービス',
           notify_schedule: Date.today + NOTIFY_HOUR.hours
         )

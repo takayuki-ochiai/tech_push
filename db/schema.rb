@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161230075859) do
+ActiveRecord::Schema.define(version: 20170317123006) do
 
   create_table "book_topics", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "book_id"
@@ -76,6 +76,8 @@ ActiveRecord::Schema.define(version: 20161230075859) do
     t.datetime "notify_datetime"
     t.datetime "created_at",                           null: false
     t.datetime "updated_at",                           null: false
+    t.string   "link_url"
+    t.string   "chrome_web_icon"
     t.index ["book_id", "user_id"], name: "index_notices_on_book_id_and_user_id", unique: true, using: :btree
     t.index ["book_id"], name: "index_notices_on_book_id", using: :btree
     t.index ["device_id"], name: "index_notices_on_device_id", using: :btree

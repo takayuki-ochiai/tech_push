@@ -16,14 +16,16 @@ module OneSignalApiClient
     builder.use Faraday::Adapter::NetHttp
   end
 
-  def self.notifi_messages(headings, contents, target_player_ids)
+  def self.notify_messages(notice, target_player_ids)
     response = CONN.post('notifications') do |req|
       req.headers['Content-Type'] = 'application/json'
       req.headers['Authorization'] = "Basic #{REST_API_KEY}"
       req.body = {
         app_id: APP_ID,
-        headings: { en: 'English is not supported in TechPush', ja: headings },
-        contents: { en: 'English is not supported in TechPush', ja: contents },
+        headings: { en: 'English is not supported in TechPush', ja: notice.headings },
+        contents: { en: 'English is not supported in TechPush', ja: notice.contents },
+        url: notice.link_url,
+        chrome_web_icon: notice.chrome_web_icon,
         include_player_ids: target_player_ids
       }.to_json
     end
