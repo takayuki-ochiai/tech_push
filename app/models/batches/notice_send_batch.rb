@@ -27,6 +27,7 @@ module NoticeSendBatch
         notice,
         target_player_ids
       )
+      # 1通1通の間で送信の間に間隔を空ける
       sleep(WAIT_SECONDS)
 
       Rails.logger.info("NoticeSendBatch OneSignalApiClient contents: #{notice.contents} response: #{body}")
