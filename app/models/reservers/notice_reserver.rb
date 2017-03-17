@@ -23,8 +23,8 @@ module NoticeReserver
           one_signal_player_id: device.one_signal_player_id,
           device_model: device.device_model,
           device_os: device.device_os,
-          contents: "#{book.title}は#{reserve_since}日後に発売です",
-          headings: 'Tech Push',
+          contents: "#{book.title}は#{book.sales_date.strftime('%Y/%m/%d')}日後に発売です",
+          headings: 'TechPush(テックプッシュ) IT技術書の新刊通知サービス',
           notify_schedule: Date.today + NOTIFY_HOUR.hours
         )
       end

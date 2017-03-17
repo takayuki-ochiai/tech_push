@@ -13,7 +13,8 @@ class Books extends Component {
         href={book.itemUrl}
         key={book.id}
         style={{
-          textDecoration: 'none'
+          textDecoration: 'none',
+          margin: 10
         }}
         rel="noopener noreferrer"
         target="_blank"
@@ -22,7 +23,7 @@ class Books extends Component {
           style={{
             width: 250,
             maxHeight: 480,
-            margin: 10
+            margin: 0
           }}
         >
           <CardMedia
@@ -42,7 +43,7 @@ class Books extends Component {
             subtitle={book.author}
             titleStyle={{
               fontSize: 16,
-              lineHeight: '24px'
+              lineHeight: '16px'
             }}
           />
         </Card>
