@@ -11,11 +11,23 @@ module V1
 
     resource :books do
       desc '書籍一覧を取得します'
+      params do
+        optional :page, type: Integer
+        optional :per_page, type: Integer
+      end
       get '/' do
-        books = Book.where(display_flg: true).map do |book|
+        per_page = params[:per_page] || 10
+        page = params[:page] || 1
+        books = Book.where(
+          'display_flg = :display_flg AND sales_date <= :sales_date',
+          display_flg: true, sales_date: Date.today + 14.days
+        ).limit(per_page).offset(per_page * (page - 1)).order(sales_date: :desc).map do |book|
           BookSerializer.new(book).serializable_hash
         end
-        { books: books }.camelize_keys
+        # 件数がページあたり件数未満の時は終端とみなす
+        is_end = books.count < per_page
+
+        { books: books, is_end: is_end }.camelize_keys
       end
     end
   end

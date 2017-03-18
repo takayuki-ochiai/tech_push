@@ -4,6 +4,7 @@ import {
   CardMedia,
   CardTitle,
 } from 'material-ui/Card';
+import CircularProgress from 'material-ui/CircularProgress';
 
 class Books extends Component {
   render() {
@@ -71,6 +72,17 @@ class Books extends Component {
         >
           {bookCards}
         </div>
+        {this.props.store.isLoading ?
+          <div
+            style={{
+              marginTop: 24,
+              textAlign: 'center'
+            }}
+          >
+            <CircularProgress />
+          </div>
+           : null
+        }
       </div>
     );
   }
