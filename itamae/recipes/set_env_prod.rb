@@ -11,3 +11,5 @@ remote_file ENV_VAR_DIR do
   # レシピファイルからの相対パス
   source "remote_files/env_prod.yml"
 end
+
+include_recipe 'set_env_common.rb'
