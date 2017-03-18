@@ -40,8 +40,7 @@ const entrySources = [
   'babel-polyfill',
   // 'webpack-hot-middleware/client',
   './react/main.jsx',
-  './stylesheet/reset.css',
-  './stylesheet/colors.css',
+  './stylesheet/reset.css'
 ];
 
 module.exports = {
