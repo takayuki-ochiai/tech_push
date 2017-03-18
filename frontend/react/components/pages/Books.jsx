@@ -40,9 +40,15 @@ class Books extends Component {
           </CardMedia>
           <CardTitle
             title={book.title}
-            subtitle={book.author}
+            subtitle={
+              <div>
+                {book.author}<br />
+                {book.salesDate}
+              </div>
+            }
             titleStyle={{
               fontSize: 16,
+              paddingBottom: 8,
               lineHeight: '16px'
             }}
           />
