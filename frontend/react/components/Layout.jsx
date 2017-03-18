@@ -101,6 +101,9 @@ class Layout extends Component {
         <AppBar
           title={this.renderTitle()}
           iconElementLeft={this.renderLeftIcon()}
+          style={{
+            position: 'fixed'
+          }}
         />
         <Drawer
           open={this.state.isSideMenuOpen}
